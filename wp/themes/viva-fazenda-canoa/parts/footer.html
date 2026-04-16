@@ -1,0 +1,39 @@
+<!-- wp:html -->
+<footer class="ft">
+  <div class="ft__inner">
+    <div class="ft__col ft__col--brand">
+      <img src="{{LOGO}}" alt="Fazenda Canoa" class="ft__logo">
+      <p>Condomínio-Reserva às margens do Lago Corumbá IV. Silvânia, Goiás. Realização FRSC.</p>
+    </div>
+    <div class="ft__col"><h4>Navegação</h4><ul><li><a href="#para-quem">Para quem é</a></li><li><a href="#lifestyle">Lifestyle</a></li><li><a href="#lazer">Lazer</a></li><li><a href="#localizacao">Localização</a></li><li><a href="#contato">Contato</a></li></ul></div>
+    <div class="ft__col"><h4>Contato</h4><ul><li>WhatsApp: {{WHATSAPP_NUMBER}}</li><li><a href="https://www.instagram.com/fazendacanoa/" target="_blank" rel="noopener">@fazendacanoa</a></li><li><a href="https://fazendacanoa.com.br/" target="_blank" rel="noopener">fazendacanoa.com.br</a></li></ul></div>
+    <div class="ft__col"><h4>Incorporadora</h4><ul><li><a href="https://frsc.com.br/" target="_blank" rel="noopener">FRSC — frsc.com.br</a></li><li>Anápolis-GO · CEP 75.110-390</li></ul></div>
+  </div>
+  <div class="ft__legal"><p><strong>Canoa Administração e Participação</strong> · CNPJ 22.806.561/0001-15 · Registro R-4 Matrícula 19.388, Cartório de Silvânia/GO.</p><p>Imagens meramente ilustrativas. Valores sujeitos a disponibilidade e aprovação cadastral.</p></div>
+  <div class="ft__bottom"><span>© {{YEAR}} Reserva Fazenda Canoa · FRSC</span><span>Desenvolvido pela <a href="https://ruch.digital" target="_blank" rel="noopener" class="ft__credit">RUCH</a></span></div>
+</footer>
+
+<!-- Modal de captação -->
+<div class="modal" id="capture-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal__backdrop" data-modal-close></div>
+  <div class="modal__panel" role="document">
+    <button class="modal__close" aria-label="Fechar" type="button" data-modal-close><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 6l12 12M18 6l-12 12"/></svg></button>
+    <div class="modal__header">
+      <span class="modal__eyebrow" id="modal-eyebrow">Fazenda Canoa</span>
+      <h2 id="modal-title" class="modal__title">Conheça a<br><em>Fazenda Canoa.</em></h2>
+      <p class="modal__subtitle" id="modal-subtitle">Preencha seus dados e um consultor retorna em instantes via WhatsApp.</p>
+    </div>
+    <form class="modal__form" id="capture-form" novalidate>
+      <input type="hidden" name="contexto" id="modal-context" value="">
+      <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;pointer-events:none" aria-hidden="true">
+      <div class="mfield"><input type="text" name="nome" required autocomplete="name" placeholder=" " id="mf-nome"><label for="mf-nome">Nome completo</label></div>
+      <div class="mfield"><input type="tel" name="telefone" required autocomplete="tel" placeholder=" " id="mf-tel"><label for="mf-tel">WhatsApp</label></div>
+      <div class="mfield mfield--email"><input type="email" name="email" autocomplete="email" placeholder=" " id="mf-email"><label for="mf-email">E-mail <span>(opcional)</span></label></div>
+      <div class="mfield mfield--interest"><select name="interesse" id="modal-interest" required><option value="">Interesse</option><option>Informações gerais</option><option>Lote frente-lago</option><option>Lote vista-lago</option><option>Lote bosque</option><option>Agendamento de visita</option><option>Simulação de pagamento</option><option>Book do empreendimento</option></select></div>
+      <button type="submit" class="btn btn--corten btn--block btn--lg modal__submit">Enviar e conversar no WhatsApp</button>
+      <p class="modal__disclaimer">Seus dados ficam protegidos. Nunca fazemos spam.</p>
+    </form>
+    <div class="modal__success" hidden></div>
+  </div>
+</div>
+<!-- /wp:html -->
