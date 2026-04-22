@@ -193,12 +193,22 @@ function lfc_dispatch_webhook( $post_id, $opts ) {
 }
 
 /**
- * Nonce público para o form (injetado via FC_OPTS)
+ * Nonce público para o form (injetado antes do script do tema)
+ * Suporta múltiplos handles: fc-main (LP1 Lago) e vfc-main (LP2 Viva).
+ * Fallback: injeta diretamente no <head> se nenhum handle estiver registrado.
  */
 add_action( 'wp_enqueue_scripts', function () {
-	if ( ! wp_script_is( 'fc-main', 'registered' ) ) return;
-	wp_add_inline_script( 'fc-main',
-		'window.FC_AJAX = { url: "' . esc_url_raw( admin_url( 'admin-ajax.php' ) ) . '", nonce: "' . wp_create_nonce( 'lfc_lead' ) . '" };',
-		'before'
-	);
+	$inline = 'window.FC_AJAX = { url: "' . esc_url_raw( admin_url( 'admin-ajax.php' ) ) . '", nonce: "' . wp_create_nonce( 'lfc_lead' ) . '" };';
+	$attached = false;
+	foreach ( [ 'fc-main', 'vfc-main' ] as $handle ) {
+		if ( wp_script_is( $handle, 'registered' ) ) {
+			wp_add_inline_script( $handle, $inline, 'before' );
+			$attached = true;
+		}
+	}
+	if ( ! $attached ) {
+		add_action( 'wp_head', function () use ( $inline ) {
+			echo "\n<script>{$inline}</script>\n";
+		}, 5 );
+	}
 }, 20 );
