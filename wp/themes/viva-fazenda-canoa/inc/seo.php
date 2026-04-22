@@ -328,7 +328,14 @@ add_action( 'wp_head', function () {
  * Valores preenchidos em Configurações → Fazenda Canoa.
  */
 add_action( 'wp_head', function () {
-	$opts = function_exists( 'lfc_get_options' ) ? lfc_get_options() : [];
+	// Se o plugin lfc-opcoes não estiver ativo, usa defaults hardcoded do tema.
+	// Isso garante que Pixel/Google Ads funcionem mesmo sem o plugin ativado.
+	$defaults = [
+		'meta_pixel_id'   => '367669074650821',
+		'google_ads_id'   => 'AW-432545598',
+		'google_ads_conv' => 'AW-432545598/FJsnCKPUyaAcEL6-oM4B',
+	];
+	$opts = function_exists( 'lfc_get_options' ) ? array_merge( $defaults, lfc_get_options() ) : $defaults;
 
 	// Google Search Console verification
 	if ( ! empty( $opts['gsc_verification'] ) ) {

@@ -17,8 +17,41 @@
   <link rel="preload" as="image" href="../video-web/hero-poster.jpg" fetchpriority="high" type="image/jpeg">
   <link rel="dns-prefetch" href="//maps.google.com">
   <link rel="dns-prefetch" href="//wa.me">
+  <link rel="dns-prefetch" href="//connect.facebook.net">
+  <link rel="dns-prefetch" href="//www.googletagmanager.com">
 
   <link rel="stylesheet" href="./style.css">
+
+  <!-- Analytics config (usado pelo main.js para disparar eventos Lead com deduplicação) -->
+  <script>window.FC_ANALYTICS = {
+    metaPixelId: '367669074650821',
+    googleAdsId: 'AW-432545598',
+    googleAdsConv: 'AW-432545598/FJsnCKPUyaAcEL6-oM4B'
+  };</script>
+
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '367669074650821');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=367669074650821&ev=PageView&noscript=1"/></noscript>
+
+  <!-- Google Ads Tag -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-432545598"></script>
+  <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-432545598');
+  </script>
 </head>
 <body>
 
