@@ -25,6 +25,12 @@ add_action( 'wp_enqueue_scripts', function () {
 	wp_localize_script( 'vfc-main', 'FC_OPTS', [
 		'whatsapp' => $opts['whatsapp'] ?? '5562999593530',
 	] );
+	// FC_AJAX: garante que o form envia ao servidor (para CAPI) mesmo se o plugin
+	// não tiver sido atualizado com o fix do handle vfc-main.
+	wp_add_inline_script( 'vfc-main',
+		'window.FC_AJAX = window.FC_AJAX || { url: "' . esc_url_raw( admin_url( 'admin-ajax.php' ) ) . '", nonce: "' . wp_create_nonce( 'lfc_lead' ) . '" };',
+		'before'
+	);
 } );
 
 // Pattern category
