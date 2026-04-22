@@ -38,11 +38,11 @@ function lfc_get_options() {
 		'book_url'            => '',
 		'webhook_url'         => '',
 		'webhook_secret'      => '',
-		// SEO / Analytics
+		// SEO / Analytics (hardcoded — ativos por padrão, sem precisar configurar no admin)
 		'gsc_verification'    => '',
 		'ga4_id'              => '',
 		'meta_pixel_id'       => '367669074650821',
-		'meta_capi_token'     => '',
+		'meta_capi_token'     => 'EAATI2pWjzk8BRYfqZCZAWdUyW7HmitemkIZAf99mBy8LaVybwc2WGLXZCvLZBSUZBswdmmZCOWZCdVLdAILcjteBwsLEgBPWxG91btsDblbWa3paIu2j43fwSHp7Blk2ry5Gr99C1gMZAsS5QHKirofZA18irJuTPIOP9lSviKFZB6Trj55cNZC46qon1SEeMHdmUIcfYwZDZD',
 		'google_ads_id'       => 'AW-432545598',
 		'google_ads_conv'     => 'AW-432545598/FJsnCKPUyaAcEL6-oM4B',
 	];

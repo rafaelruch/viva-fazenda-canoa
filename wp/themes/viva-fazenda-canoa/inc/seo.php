@@ -330,8 +330,10 @@ add_action( 'wp_head', function () {
 add_action( 'wp_head', function () {
 	// Se o plugin lfc-opcoes não estiver ativo, usa defaults hardcoded do tema.
 	// Isso garante que Pixel/Google Ads funcionem mesmo sem o plugin ativado.
+	// Hardcoded no tema — pixels sempre ativos, sem depender de configuração no admin
 	$defaults = [
 		'meta_pixel_id'   => '367669074650821',
+		'meta_capi_token' => 'EAATI2pWjzk8BRYfqZCZAWdUyW7HmitemkIZAf99mBy8LaVybwc2WGLXZCvLZBSUZBswdmmZCOWZCdVLdAILcjteBwsLEgBPWxG91btsDblbWa3paIu2j43fwSHp7Blk2ry5Gr99C1gMZAsS5QHKirofZA18irJuTPIOP9lSviKFZB6Trj55cNZC46qon1SEeMHdmUIcfYwZDZD',
 		'google_ads_id'   => 'AW-432545598',
 		'google_ads_conv' => 'AW-432545598/FJsnCKPUyaAcEL6-oM4B',
 	];
