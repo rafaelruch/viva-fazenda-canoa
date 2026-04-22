@@ -32,6 +32,7 @@ function lfc_handle_lead_submit() {
 	$interesse = sanitize_text_field( $_POST['interesse'] ?? '' );
 	$contexto  = sanitize_text_field( $_POST['contexto'] ?? 'geral' );
 	$source    = sanitize_text_field( $_POST['source'] ?? 'modal' );
+	$event_id  = sanitize_text_field( $_POST['event_id'] ?? '' );
 
 	if ( empty( $nome ) || empty( $telefone ) ) {
 		wp_send_json_error( [ 'message' => 'Preencha nome e WhatsApp.' ], 422 );
@@ -60,16 +61,100 @@ function lfc_handle_lead_submit() {
 		wp_send_json_error( [ 'message' => 'Erro ao salvar. Tente novamente.' ], 500 );
 	}
 
-	// Dispara webhook (se configurado)
+	// Salva event_id na meta
+	if ( $event_id ) update_post_meta( $post_id, 'event_id', $event_id );
+
 	$opts = lfc_get_options();
+
+	// Dispara Meta Conversions API (server-side Lead event)
+	if ( ! empty( $opts['meta_capi_token'] ) && ! empty( $opts['meta_pixel_id'] ) ) {
+		lfc_dispatch_meta_capi( $post_id, $opts, compact( 'nome', 'telefone', 'email', 'interesse', 'contexto', 'event_id' ) );
+	}
+
+	// Dispara webhook externo (n8n/RD/Zapier) se configurado
 	if ( ! empty( $opts['webhook_url'] ) ) {
 		lfc_dispatch_webhook( $post_id, $opts );
 	}
 
 	wp_send_json_success( [
-		'message' => 'Lead recebido com sucesso.',
-		'lead_id' => $post_id,
+		'message'  => 'Lead recebido com sucesso.',
+		'lead_id'  => $post_id,
+		'event_id' => $event_id,
 	] );
+}
+
+/**
+ * Envia evento Lead para Meta Conversions API (server-side).
+ * Usa o MESMO event_id do pixel browser para deduplicação.
+ *
+ * @param int   $post_id CPT lead ID
+ * @param array $opts    Plugin options (com meta_capi_token + meta_pixel_id)
+ * @param array $data    Dados do lead (nome, telefone, email, interesse, event_id)
+ */
+function lfc_dispatch_meta_capi( $post_id, $opts, $data ) {
+	$pixel_id = preg_replace( '/\D/', '', $opts['meta_pixel_id'] ?? '' );
+	$token    = $opts['meta_capi_token'] ?? '';
+	if ( ! $pixel_id || ! $token ) return;
+
+	// Hash de dados do usuário (SHA-256 lowercase, conforme spec Meta)
+	$hash = function ( $v ) {
+		return $v ? hash( 'sha256', strtolower( trim( $v ) ) ) : '';
+	};
+
+	// Telefone: apenas dígitos (com código do país)
+	$phone_clean = preg_replace( '/\D/', '', $data['telefone'] ?? '' );
+	if ( $phone_clean && strlen( $phone_clean ) < 12 ) {
+		$phone_clean = '55' . $phone_clean; // Assume Brasil se sem código país
+	}
+
+	// Divide nome em primeiro e último
+	$parts     = explode( ' ', trim( $data['nome'] ?? '' ) );
+	$first     = $parts[0] ?? '';
+	$last      = count( $parts ) > 1 ? end( $parts ) : '';
+
+	// Cookies fbp/fbc (vêm do browser via cookies _fbp e _fbc)
+	$fbp = isset( $_COOKIE['_fbp'] ) ? sanitize_text_field( $_COOKIE['_fbp'] ) : '';
+	$fbc = isset( $_COOKIE['_fbc'] ) ? sanitize_text_field( $_COOKIE['_fbc'] ) : '';
+
+	$user_data = array_filter( [
+		'em'                => $data['email'] ? [ $hash( $data['email'] ) ] : null,
+		'ph'                => $phone_clean ? [ $hash( $phone_clean ) ] : null,
+		'fn'                => $first ? [ $hash( $first ) ] : null,
+		'ln'                => $last ? [ $hash( $last ) ] : null,
+		'client_ip_address' => isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( $_SERVER['REMOTE_ADDR'] ) : '',
+		'client_user_agent' => isset( $_SERVER['HTTP_USER_AGENT'] ) ? sanitize_text_field( $_SERVER['HTTP_USER_AGENT'] ) : '',
+		'fbp'               => $fbp ?: null,
+		'fbc'               => $fbc ?: null,
+	] );
+
+	$event = [
+		'event_name'       => 'Lead',
+		'event_time'       => time(),
+		'event_id'         => $data['event_id'] ?: ( 'lead_' . $post_id . '_' . time() ),
+		'action_source'    => 'website',
+		'event_source_url' => isset( $_SERVER['HTTP_REFERER'] ) ? esc_url_raw( $_SERVER['HTTP_REFERER'] ) : home_url( '/' ),
+		'user_data'        => $user_data,
+		'custom_data'      => array_filter( [
+			'content_name'     => 'Formulario LP',
+			'content_category' => $data['interesse'] ?: 'Informações gerais',
+		] ),
+	];
+
+	$payload = [
+		'data'         => [ $event ],
+		'access_token' => $token,
+	];
+
+	$endpoint = 'https://graph.facebook.com/v21.0/' . $pixel_id . '/events';
+	$response = wp_remote_post( $endpoint, [
+		'headers'  => [ 'Content-Type' => 'application/json' ],
+		'body'     => wp_json_encode( $payload ),
+		'timeout'  => 6,
+		'blocking' => false, // fire-and-forget
+	] );
+
+	$status = is_wp_error( $response ) ? 'capi_error: ' . $response->get_error_message() : 'capi_dispatched';
+	update_post_meta( $post_id, 'meta_capi_status', $status );
 }
 
 /**

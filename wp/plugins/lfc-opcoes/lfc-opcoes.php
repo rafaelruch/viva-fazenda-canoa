@@ -41,7 +41,10 @@ function lfc_get_options() {
 		// SEO / Analytics
 		'gsc_verification'    => '',
 		'ga4_id'              => '',
-		'meta_pixel_id'       => '',
+		'meta_pixel_id'       => '367669074650821',
+		'meta_capi_token'     => '',
+		'google_ads_id'       => 'AW-432545598',
+		'google_ads_conv'     => 'AW-432545598/FJsnCKPUyaAcEL6-oM4B',
 	];
 	$saved = get_option( 'lfc_opcoes', [] );
 	return wp_parse_args( $saved, $defaults );

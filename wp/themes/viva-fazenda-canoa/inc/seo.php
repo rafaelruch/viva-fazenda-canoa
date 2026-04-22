@@ -351,4 +351,25 @@ add_action( 'wp_head', function () {
 		echo "<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','" . $px . "');fbq('track','PageView');</script>\n";
 		echo '<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=' . $px . '&ev=PageView&noscript=1"/></noscript>' . "\n";
 	}
+
+	// Google Ads tag (separado do GA4)
+	if ( ! empty( $opts['google_ads_id'] ) ) {
+		$aw = esc_attr( $opts['google_ads_id'] );
+		echo "\n<!-- Google Ads Tag -->\n";
+		echo '<script async src="https://www.googletagmanager.com/gtag/js?id=' . $aw . '"></script>' . "\n";
+		echo '<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","' . $aw . '");</script>' . "\n";
+	}
+
+	// Expõe IDs para o front-end (usados pelo main.js ao submeter formulários)
+	$conv   = ! empty( $opts['google_ads_conv'] ) ? $opts['google_ads_conv'] : '';
+	$pxId   = ! empty( $opts['meta_pixel_id'] ) ? $opts['meta_pixel_id'] : '';
+	$awId   = ! empty( $opts['google_ads_id'] ) ? $opts['google_ads_id'] : '';
+	if ( $conv || $pxId || $awId ) {
+		echo "\n<!-- FC Analytics config -->\n";
+		echo '<script>window.FC_ANALYTICS = ' . wp_json_encode([
+			'metaPixelId'     => $pxId,
+			'googleAdsId'     => $awId,
+			'googleAdsConv'   => $conv,
+		]) . ';</script>' . "\n";
+	}
 }, 4 );

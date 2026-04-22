@@ -98,6 +98,7 @@ function lfc_render_lead_metabox( $post ) {
 		'interesse' => 'Interesse',
 		'contexto'  => 'Contexto (origem da captação)',
 		'source'    => 'Origem (fonte do formulário)',
+		'event_id'  => 'Event ID (Meta CAPI / deduplicação)',
 		'user_agent'=> 'User-Agent',
 		'referrer'  => 'Referrer',
 		'ip'        => 'IP',
@@ -107,9 +108,9 @@ function lfc_render_lead_metabox( $post ) {
 		$val = get_post_meta( $post->ID, $key, true );
 		echo '<tr><th scope="row">' . esc_html( $label ) . '</th><td>' . ( $val ? esc_html( $val ) : '—' ) . '</td></tr>';
 	}
-	$webhook = get_post_meta( $post->ID, 'webhook_status', true );
-	if ( $webhook ) {
-		echo '<tr><th scope="row">Webhook</th><td><code>' . esc_html( $webhook ) . '</code></td></tr>';
+	foreach ( [ 'webhook_status' => 'Webhook', 'meta_capi_status' => 'Meta CAPI' ] as $key => $label ) {
+		$val = get_post_meta( $post->ID, $key, true );
+		if ( $val ) echo '<tr><th scope="row">' . esc_html( $label ) . '</th><td><code>' . esc_html( $val ) . '</code></td></tr>';
 	}
 	echo '</tbody></table>';
 }

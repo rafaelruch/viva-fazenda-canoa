@@ -46,6 +46,9 @@ function lfc_sanitize_options( $input ) {
 	$clean['gsc_verification']   = preg_replace( '/[^A-Za-z0-9_\-]/', '', $input['gsc_verification'] ?? '' );
 	$clean['ga4_id']             = preg_replace( '/[^A-Za-z0-9\-]/', '', $input['ga4_id'] ?? '' );
 	$clean['meta_pixel_id']      = preg_replace( '/\D/', '', $input['meta_pixel_id'] ?? '' );
+	$clean['meta_capi_token']    = sanitize_text_field( $input['meta_capi_token'] ?? '' );
+	$clean['google_ads_id']      = preg_replace( '/[^A-Za-z0-9\-]/', '', $input['google_ads_id'] ?? '' );
+	$clean['google_ads_conv']    = preg_replace( '/[^A-Za-z0-9\-\/_]/', '', $input['google_ads_conv'] ?? '' );
 	return $clean;
 }
 
@@ -161,7 +164,34 @@ function lfc_render_options_page() {
 					<td>
 						<input type="text" id="lfc_meta_pixel" name="lfc_opcoes[meta_pixel_id]" value="<?php echo esc_attr( $opts['meta_pixel_id'] ); ?>" class="regular-text" placeholder="15 dígitos numéricos">
 						<p class="description">
-							<?php esc_html_e( 'Apenas números. Encontre em Meta Business → Gerenciador de eventos → Pixels.', 'lfc-opcoes' ); ?>
+							<?php esc_html_e( 'Apenas números. Dispara PageView em todas as páginas e Lead no envio do formulário.', 'lfc-opcoes' ); ?>
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="lfc_meta_capi"><?php esc_html_e( 'Meta Conversions API — Token de acesso', 'lfc-opcoes' ); ?></label></th>
+					<td>
+						<input type="password" id="lfc_meta_capi" name="lfc_opcoes[meta_capi_token]" value="<?php echo esc_attr( $opts['meta_capi_token'] ); ?>" class="large-text" placeholder="EAA... (token longo)" autocomplete="new-password">
+						<p class="description">
+							<?php esc_html_e( 'Token da Conversions API da Meta. Envia eventos server-to-server com deduplicação via event_id — melhora muito a correspondência mesmo com ad-blockers/iOS.', 'lfc-opcoes' ); ?>
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="lfc_google_ads"><?php esc_html_e( 'Google Ads — Tag ID', 'lfc-opcoes' ); ?></label></th>
+					<td>
+						<input type="text" id="lfc_google_ads" name="lfc_opcoes[google_ads_id]" value="<?php echo esc_attr( $opts['google_ads_id'] ); ?>" class="regular-text" placeholder="AW-XXXXXXXXX">
+						<p class="description">
+							<?php esc_html_e( 'Tag gtag.js do Google Ads, no formato AW-XXXXXXXXX.', 'lfc-opcoes' ); ?>
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="lfc_google_ads_conv"><?php esc_html_e( 'Google Ads — Ação de Conversão (Lead)', 'lfc-opcoes' ); ?></label></th>
+					<td>
+						<input type="text" id="lfc_google_ads_conv" name="lfc_opcoes[google_ads_conv]" value="<?php echo esc_attr( $opts['google_ads_conv'] ); ?>" class="regular-text" placeholder="AW-XXX/YYYYY">
+						<p class="description">
+							<?php esc_html_e( 'Valor completo de send_to (formato AW-XXX/YYYYY). Disparado após envio do formulário, antes do redirecionamento para WhatsApp.', 'lfc-opcoes' ); ?>
 						</p>
 					</td>
 				</tr>
