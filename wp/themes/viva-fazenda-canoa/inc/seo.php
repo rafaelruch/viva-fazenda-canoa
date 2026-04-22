@@ -323,62 +323,37 @@ add_action( 'wp_head', function () {
 
 /**
  * ============================================================
- * GOOGLE SEARCH CONSOLE, GA4 E META PIXEL
+ * META PIXEL + GOOGLE ADS — HARDCODED NO TEMA
  * ============================================================
- * Valores preenchidos em Configurações → Fazenda Canoa.
+ * Valores fixos no código. Não lê do banco, não depende de plugin,
+ * não pode ser desligado via admin. Garante que está SEMPRE ativo.
  */
+if ( ! defined( 'FC_META_PIXEL_ID' ) )   define( 'FC_META_PIXEL_ID',   '367669074650821' );
+if ( ! defined( 'FC_GOOGLE_ADS_ID' ) )   define( 'FC_GOOGLE_ADS_ID',   'AW-432545598' );
+if ( ! defined( 'FC_GOOGLE_ADS_CONV' ) ) define( 'FC_GOOGLE_ADS_CONV', 'AW-432545598/FJsnCKPUyaAcEL6-oM4B' );
+if ( ! defined( 'FC_META_CAPI_TOKEN' ) ) define( 'FC_META_CAPI_TOKEN', 'EAATI2pWjzk8BRYfqZCZAWdUyW7HmitemkIZAf99mBy8LaVybwc2WGLXZCvLZBSUZBswdmmZCOWZCdVLdAILcjteBwsLEgBPWxG91btsDblbWa3paIu2j43fwSHp7Blk2ry5Gr99C1gMZAsS5QHKirofZA18irJuTPIOP9lSviKFZB6Trj55cNZC46qon1SEeMHdmUIcfYwZDZD' );
+
 add_action( 'wp_head', function () {
-	// Se o plugin lfc-opcoes não estiver ativo, usa defaults hardcoded do tema.
-	// Isso garante que Pixel/Google Ads funcionem mesmo sem o plugin ativado.
-	// Hardcoded no tema — pixels sempre ativos, sem depender de configuração no admin
-	$defaults = [
-		'meta_pixel_id'   => '367669074650821',
-		'meta_capi_token' => 'EAATI2pWjzk8BRYfqZCZAWdUyW7HmitemkIZAf99mBy8LaVybwc2WGLXZCvLZBSUZBswdmmZCOWZCdVLdAILcjteBwsLEgBPWxG91btsDblbWa3paIu2j43fwSHp7Blk2ry5Gr99C1gMZAsS5QHKirofZA18irJuTPIOP9lSviKFZB6Trj55cNZC46qon1SEeMHdmUIcfYwZDZD',
-		'google_ads_id'   => 'AW-432545598',
-		'google_ads_conv' => 'AW-432545598/FJsnCKPUyaAcEL6-oM4B',
-	];
-	$opts = function_exists( 'lfc_get_options' ) ? array_merge( $defaults, lfc_get_options() ) : $defaults;
+	$px   = FC_META_PIXEL_ID;
+	$aw   = FC_GOOGLE_ADS_ID;
+	$conv = FC_GOOGLE_ADS_CONV;
 
-	// Google Search Console verification
-	if ( ! empty( $opts['gsc_verification'] ) ) {
-		echo "\n<!-- Google Search Console -->\n";
-		echo '<meta name="google-site-verification" content="' . esc_attr( $opts['gsc_verification'] ) . '">' . "\n";
-	}
+	// Meta Pixel — snippet oficial do PDF
+	echo "\n<!-- Meta Pixel Code -->\n";
+	echo "<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','{$px}');fbq('track','PageView');</script>\n";
+	echo "<noscript><img height=\"1\" width=\"1\" style=\"display:none\" src=\"https://www.facebook.com/tr?id={$px}&ev=PageView&noscript=1\"/></noscript>\n";
+	echo "<!-- End Meta Pixel Code -->\n";
 
-	// Google Analytics 4
-	if ( ! empty( $opts['ga4_id'] ) ) {
-		$ga_id = esc_attr( $opts['ga4_id'] );
-		echo "\n<!-- Google Analytics 4 -->\n";
-		echo '<script async src="https://www.googletagmanager.com/gtag/js?id=' . $ga_id . '"></script>' . "\n";
-		echo '<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","' . $ga_id . '",{anonymize_ip:true});</script>' . "\n";
-	}
+	// Google Ads tag (gtag.js) — snippet oficial do PDF
+	echo "\n<!-- Google tag (gtag.js) -->\n";
+	echo "<script async src=\"https://www.googletagmanager.com/gtag/js?id={$aw}\"></script>\n";
+	echo "<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{$aw}');</script>\n";
 
-	// Meta (Facebook) Pixel
-	if ( ! empty( $opts['meta_pixel_id'] ) ) {
-		$px = esc_attr( $opts['meta_pixel_id'] );
-		echo "\n<!-- Meta Pixel -->\n";
-		echo "<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','" . $px . "');fbq('track','PageView');</script>\n";
-		echo '<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=' . $px . '&ev=PageView&noscript=1"/></noscript>' . "\n";
-	}
-
-	// Google Ads tag (separado do GA4)
-	if ( ! empty( $opts['google_ads_id'] ) ) {
-		$aw = esc_attr( $opts['google_ads_id'] );
-		echo "\n<!-- Google Ads Tag -->\n";
-		echo '<script async src="https://www.googletagmanager.com/gtag/js?id=' . $aw . '"></script>' . "\n";
-		echo '<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","' . $aw . '");</script>' . "\n";
-	}
-
-	// Expõe IDs para o front-end (usados pelo main.js ao submeter formulários)
-	$conv   = ! empty( $opts['google_ads_conv'] ) ? $opts['google_ads_conv'] : '';
-	$pxId   = ! empty( $opts['meta_pixel_id'] ) ? $opts['meta_pixel_id'] : '';
-	$awId   = ! empty( $opts['google_ads_id'] ) ? $opts['google_ads_id'] : '';
-	if ( $conv || $pxId || $awId ) {
-		echo "\n<!-- FC Analytics config -->\n";
-		echo '<script>window.FC_ANALYTICS = ' . wp_json_encode([
-			'metaPixelId'     => $pxId,
-			'googleAdsId'     => $awId,
-			'googleAdsConv'   => $conv,
-		]) . ';</script>' . "\n";
-	}
+	// Config para o front-end (main.js) disparar Lead + conversion no submit
+	echo "\n<!-- FC Analytics config -->\n";
+	echo '<script>window.FC_ANALYTICS = ' . wp_json_encode([
+		'metaPixelId'   => $px,
+		'googleAdsId'   => $aw,
+		'googleAdsConv' => $conv,
+	]) . ';</script>' . "\n";
 }, 4 );

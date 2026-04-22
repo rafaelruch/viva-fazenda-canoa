@@ -65,6 +65,9 @@ function lfc_handle_lead_submit() {
 	if ( $event_id ) update_post_meta( $post_id, 'event_id', $event_id );
 
 	$opts = lfc_get_options();
+	// Se o tema definiu constantes hardcoded, usa elas (prevalecem sobre opções do admin)
+	if ( defined( 'FC_META_PIXEL_ID' ) )   $opts['meta_pixel_id']   = FC_META_PIXEL_ID;
+	if ( defined( 'FC_META_CAPI_TOKEN' ) ) $opts['meta_capi_token'] = FC_META_CAPI_TOKEN;
 
 	// Dispara Meta Conversions API (server-side Lead event)
 	if ( ! empty( $opts['meta_capi_token'] ) && ! empty( $opts['meta_pixel_id'] ) ) {
