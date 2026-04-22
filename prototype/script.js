@@ -4,6 +4,23 @@
    ============================================================ */
 (() => {
   'use strict';
+
+  // Analytics: dispara Meta Pixel Lead + Google Ads conversion com event_id (deduplicação CAPI)
+  const fireLeadEvents = (data) => {
+    return new Promise((resolve) => {
+      const cfg = window.FC_ANALYTICS || {};
+      const eventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).slice(2, 9);
+      if (cfg.metaPixelId && typeof window.fbq === 'function') {
+        try { window.fbq('track', 'Lead', { content_name: 'Formulario LP', content_category: data && data.interesse ? data.interesse : 'Informações gerais' }, { eventID: eventId }); } catch(e){}
+      }
+      if (cfg.googleAdsConv && typeof window.gtag === 'function') {
+        try { window.gtag('event', 'conversion', { send_to: cfg.googleAdsConv, transaction_id: eventId }); } catch(e){}
+      }
+      setTimeout(() => resolve(eventId), 300);
+    });
+  };
+  window.fireLeadEvents = fireLeadEvents;
+
   const hdr = document.getElementById('hdr');
   const burger = document.querySelector('.hdr__burger');
   const mobileMenu = document.getElementById('mobile-menu');
@@ -74,12 +91,46 @@
     e.preventDefault();
     const data = Object.fromEntries(new FormData(form));
     if (!data.nome || !data.telefone || !data.interesse) { alert('Preencha nome, WhatsApp e interesse.'); return; }
-    submitLeadLocal({ ...data, source: 'form-principal' });
     const msg = `Olá! Meu nome é ${data.nome}. WhatsApp: ${data.telefone}. Interesse: ${data.interesse}. Vim pela LP Viva Fazenda Canoa.`;
     form.querySelector('.lead-form__success').hidden = false;
     form.querySelector('button[type="submit"]').disabled = true;
-    setTimeout(() => window.open(`https://wa.me/5562999593530?text=${encodeURIComponent(msg)}`, '_blank', 'noopener'), 500);
+    fireLeadEvents(data).then((eventId) => {
+      submitLeadLocal({ ...data, source: 'form-principal', event_id: eventId });
+      setTimeout(() => window.open(`https://wa.me/5562999593530?text=${encodeURIComponent(msg)}`, '_blank', 'noopener'), 300);
+    });
   });
+
+  // --- Carrossel Estilo de Vida (scroll-snap nativo + dots) ---
+  const lfTrack = document.getElementById('lf-track');
+  const lfDots = document.getElementById('lf-dots');
+  if (lfTrack && lfDots) {
+    const slides = Array.from(lfTrack.querySelectorAll('.lf-slide'));
+    // Gera os dots dinamicamente
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'lf-dot' + (i === 0 ? ' is-active' : '');
+      dot.setAttribute('role', 'tab');
+      dot.setAttribute('aria-label', `Foto ${i + 1} de ${slides.length}`);
+      dot.addEventListener('click', () => {
+        slides[i].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+      });
+      lfDots.appendChild(dot);
+    });
+    // Atualiza dot ativo conforme scroll (IntersectionObserver com root no próprio track)
+    if ('IntersectionObserver' in window) {
+      const dots = Array.from(lfDots.querySelectorAll('.lf-dot'));
+      const slideIO = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
+            const idx = slides.indexOf(entry.target);
+            dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+          }
+        });
+      }, { root: lfTrack, threshold: [0.6, 0.9] });
+      slides.forEach(s => slideIO.observe(s));
+    }
+  }
 
   // --- 6. CountUp animation ---
   if (!prm && 'IntersectionObserver' in window) {
@@ -190,12 +241,14 @@
     if (!data.nome || !data.telefone) { alert('Preencha nome e WhatsApp.'); return; }
     if (!isBook && !data.interesse) { alert('Selecione seu interesse.'); return; }
     if (isBook) data.interesse = 'Book do empreendimento';
-    submitLeadLocal({ ...data, source: isBook ? 'book' : 'modal' });
     let msg;
     if (isBook) msg = `Olá! Meu nome é ${data.nome}. WhatsApp: ${data.telefone}. Gostaria de receber o *book completo* da Reserva Fazenda Canoa.`;
     else msg = `Olá! Meu nome é ${data.nome}. WhatsApp: ${data.telefone}. Interesse: ${data.interesse}. Vim pela LP Viva Fazenda Canoa.`;
-    closeModal();
-    window.open(`https://wa.me/5562999593530?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
+    fireLeadEvents(data).then((eventId) => {
+      submitLeadLocal({ ...data, source: isBook ? 'book' : 'modal', event_id: eventId });
+      closeModal();
+      window.open(`https://wa.me/5562999593530?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
+    });
   });
 
   // --- 10. Widget flutuante toggle ---

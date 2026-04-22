@@ -5,7 +5,7 @@
 (() => {
   'use strict';
 
-  // Analytics: dispara eventos de Lead (Meta Pixel + Google Ads) antes do redirect
+  // Analytics: dispara Meta Pixel Lead + Google Ads conversion com event_id (deduplicação CAPI)
   const fireLeadEvents = (data) => {
     return new Promise((resolve) => {
       const cfg = window.FC_ANALYTICS || {};
@@ -94,12 +94,43 @@
     const msg = `Olá! Meu nome é ${data.nome}. WhatsApp: ${data.telefone}. Interesse: ${data.interesse}. Vim pela LP Viva Fazenda Canoa.`;
     form.querySelector('.lead-form__success').hidden = false;
     form.querySelector('button[type="submit"]').disabled = true;
-    // Dispara conversão (Meta Pixel + Google Ads) → envia p/ WP (CPT + CAPI) → abre WhatsApp
     fireLeadEvents(data).then((eventId) => {
       submitLeadLocal({ ...data, source: 'form-principal', event_id: eventId });
       setTimeout(() => window.open(`https://wa.me/5562999593530?text=${encodeURIComponent(msg)}`, '_blank', 'noopener'), 300);
     });
   });
+
+  // --- Carrossel Estilo de Vida (scroll-snap nativo + dots) ---
+  const lfTrack = document.getElementById('lf-track');
+  const lfDots = document.getElementById('lf-dots');
+  if (lfTrack && lfDots) {
+    const slides = Array.from(lfTrack.querySelectorAll('.lf-slide'));
+    // Gera os dots dinamicamente
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'lf-dot' + (i === 0 ? ' is-active' : '');
+      dot.setAttribute('role', 'tab');
+      dot.setAttribute('aria-label', `Foto ${i + 1} de ${slides.length}`);
+      dot.addEventListener('click', () => {
+        slides[i].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+      });
+      lfDots.appendChild(dot);
+    });
+    // Atualiza dot ativo conforme scroll (IntersectionObserver com root no próprio track)
+    if ('IntersectionObserver' in window) {
+      const dots = Array.from(lfDots.querySelectorAll('.lf-dot'));
+      const slideIO = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
+            const idx = slides.indexOf(entry.target);
+            dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+          }
+        });
+      }, { root: lfTrack, threshold: [0.6, 0.9] });
+      slides.forEach(s => slideIO.observe(s));
+    }
+  }
 
   // --- 6. CountUp animation ---
   if (!prm && 'IntersectionObserver' in window) {
@@ -213,7 +244,6 @@
     let msg;
     if (isBook) msg = `Olá! Meu nome é ${data.nome}. WhatsApp: ${data.telefone}. Gostaria de receber o *book completo* da Reserva Fazenda Canoa.`;
     else msg = `Olá! Meu nome é ${data.nome}. WhatsApp: ${data.telefone}. Interesse: ${data.interesse}. Vim pela LP Viva Fazenda Canoa.`;
-    // Dispara conversão antes do WhatsApp (evento Lead + deduplicação via event_id)
     fireLeadEvents(data).then((eventId) => {
       submitLeadLocal({ ...data, source: isBook ? 'book' : 'modal', event_id: eventId });
       closeModal();
