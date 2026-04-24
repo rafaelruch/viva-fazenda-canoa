@@ -91,12 +91,11 @@
     e.preventDefault();
     const data = Object.fromEntries(new FormData(form));
     if (!data.nome || !data.telefone || !data.interesse) { alert('Preencha nome, WhatsApp e interesse.'); return; }
-    const msg = `Olá! Meu nome é ${data.nome}. WhatsApp: ${data.telefone}. Interesse: ${data.interesse}. Vim pela LP Viva Fazenda Canoa.`;
     form.querySelector('.lead-form__success').hidden = false;
     form.querySelector('button[type="submit"]').disabled = true;
+    // Webhook ImobMeet é disparado server-side pelo plugin lfc-opcoes-plugin via lfc_submit_lead.
     fireLeadEvents(data).then((eventId) => {
       submitLeadLocal({ ...data, source: 'form-principal', event_id: eventId });
-      setTimeout(() => window.open(`https://wa.me/5562999593530?text=${encodeURIComponent(msg)}`, '_blank', 'noopener'), 300);
     });
   });
 
@@ -192,8 +191,8 @@
   const modalSubtitle = document.getElementById('modal-subtitle');
 
   const CONTEXTS = {
-    hero:            { eyebrow:'Fazenda Canoa · Consultor dedicado', title:'Conheça a Fazenda Canoa', subtitle:'Um consultor retorna em instantes pelo WhatsApp.', interest:'Informações gerais' },
-    book:            { eyebrow:'Material exclusivo', title:'Receba o book completo', subtitle:'Plantas, diferenciais e condições — direto no seu WhatsApp.', interest:'Book do empreendimento', mode:'book', submitLabel:'Receber book por WhatsApp' },
+    hero:            { eyebrow:'Fazenda Canoa · Consultor dedicado', title:'Conheça a Fazenda Canoa', subtitle:'Um consultor retorna em breve com todas as informações.', interest:'Informações gerais' },
+    book:            { eyebrow:'Material exclusivo', title:'Receba o book completo', subtitle:'Plantas, diferenciais e condições da Reserva Fazenda Canoa.', interest:'Book do empreendimento', mode:'book', submitLabel:'Solicitar book' },
     'lote-frente':   { eyebrow:'Tipologia · Frente-Lago', title:'Lote Frente-Lago', subtitle:'Acesso privilegiado à orla do Lago Corumbá IV.', interest:'Lote frente-lago' },
     'lote-vista':    { eyebrow:'Tipologia · Vista-Lago', title:'Lote Vista-Lago', subtitle:'Panorama aberto do espelho d\'água.', interest:'Lote vista-lago' },
     'lote-bosque':   { eyebrow:'Tipologia · Bosque', title:'Lote Bosque', subtitle:'Imerso em mata preservada.', interest:'Lote bosque' },
@@ -220,7 +219,7 @@
       modalForm.hidden = false;
       const btn = modalForm.querySelector('.modal__submit');
       btn.disabled = false;
-      const label = ctx.submitLabel || 'Enviar e conversar no WhatsApp';
+      const label = ctx.submitLabel || 'Solicitar contato';
       btn.innerHTML = label + ' <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 5l7 7-7 7"/></svg>';
     }
     setTimeout(() => modal.querySelector('input[name="nome"]')?.focus(), 300);
@@ -241,13 +240,20 @@
     if (!data.nome || !data.telefone) { alert('Preencha nome e WhatsApp.'); return; }
     if (!isBook && !data.interesse) { alert('Selecione seu interesse.'); return; }
     if (isBook) data.interesse = 'Book do empreendimento';
-    let msg;
-    if (isBook) msg = `Olá! Meu nome é ${data.nome}. WhatsApp: ${data.telefone}. Gostaria de receber o *book completo* da Reserva Fazenda Canoa.`;
-    else msg = `Olá! Meu nome é ${data.nome}. WhatsApp: ${data.telefone}. Interesse: ${data.interesse}. Vim pela LP Viva Fazenda Canoa.`;
+
+    // Mostra success state dentro do modal (form some, mensagem aparece — usuário fecha quando quiser)
+    modalForm.hidden = true;
+    const successEl = modal.querySelector('.modal__success');
+    if (successEl) {
+      successEl.hidden = false;
+      const title = isBook ? 'Recebemos seu pedido!' : 'Recebemos seu contato!';
+      const sub   = isBook ? 'Em breve enviamos o book completo pra você.' : 'Em breve um consultor entra em contato com você.';
+      successEl.innerHTML = `<h3>${title}</h3><p>${sub}</p>`;
+    }
+
+    // Webhook ImobMeet é disparado server-side pelo plugin lfc-opcoes-plugin via lfc_submit_lead.
     fireLeadEvents(data).then((eventId) => {
       submitLeadLocal({ ...data, source: isBook ? 'book' : 'modal', event_id: eventId });
-      closeModal();
-      window.open(`https://wa.me/5562999593530?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
     });
   });
 

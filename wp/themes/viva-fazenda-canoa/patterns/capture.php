@@ -35,7 +35,7 @@
 
     <form class="lead-form" id="lead-form" novalidate>
       <h3>Fale com um consultor</h3>
-      <p>Receba informações completas pelo WhatsApp.</p>
+      <p>Receba informações completas em breve com nosso consultor.</p>
 
       <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;pointer-events:none" aria-hidden="true">
 
@@ -59,7 +59,7 @@
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
       </button>
       <p class="lead-form__disclaimer">Ao enviar, você concorda em receber contato comercial da Fazenda Canoa.</p>
-      <p class="lead-form__success" hidden>✓ Recebemos seu contato! Estamos te chamando no WhatsApp.</p>
+      <p class="lead-form__success" hidden>✓ Recebemos seu contato! Em breve um consultor entra em contato com você.</p>
     </form>
   </div>
 </section>

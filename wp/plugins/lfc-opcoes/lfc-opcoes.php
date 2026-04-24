@@ -2,8 +2,8 @@
 /**
  * Plugin Name:       Fazenda Canoa — Opções & Leads
  * Plugin URI:        https://lago.fazendacanoa.com.br
- * Description:       Opções centrais (WhatsApp, e-mail, horário, URL do book) + CPT para captação de leads + endpoint AJAX + gancho para webhook (n8n/RD/etc.). Usado pelo tema fazenda-canoa.
- * Version:           1.0.0
+ * Description:       Opções centrais (WhatsApp, e-mail, horário, URL do book) + CPT para captação de leads + endpoint AJAX + webhook ImobMeet CRM (default) com fallback p/ admin. Usado pelos temas fazenda-canoa e viva-fazenda-canoa.
+ * Version:           1.0.1
  * Author:            RUCH
  * Author URI:        https://ruch.digital
  * License:           GPL-2.0-or-later
@@ -16,7 +16,8 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'LFC_VERSION', '1.0.0' );
+define( 'LFC_VERSION', '1.0.1' );
+define( 'LFC_DEFAULT_WEBHOOK_URL', 'https://crm.imobmeet.com.br/webhook/formulario/d71ec64fcce5855c24d3ce8a9404113bcea6bc35' );
 define( 'LFC_PATH', plugin_dir_path( __FILE__ ) );
 define( 'LFC_URL', plugin_dir_url( __FILE__ ) );
 
@@ -36,7 +37,7 @@ function lfc_get_options() {
 		'horario'             => 'Seg a Sáb, 9h às 19h',
 		'mensagem_wa_padrao'  => 'Olá! Vim pela landing page da Fazenda Canoa',
 		'book_url'            => '',
-		'webhook_url'         => '',
+		'webhook_url'         => LFC_DEFAULT_WEBHOOK_URL,
 		'webhook_secret'      => '',
 		// SEO / Analytics (hardcoded — ativos por padrão, sem precisar configurar no admin)
 		'gsc_verification'    => '',
@@ -47,7 +48,14 @@ function lfc_get_options() {
 		'google_ads_conv'     => 'AW-432545598/FJsnCKPUyaAcEL6-oM4B',
 	];
 	$saved = get_option( 'lfc_opcoes', [] );
-	return wp_parse_args( $saved, $defaults );
+	$opts  = wp_parse_args( $saved, $defaults );
+
+	// Fallback: se admin gravou webhook_url vazio, garante o default (instalações pré-existentes).
+	if ( empty( $opts['webhook_url'] ) ) {
+		$opts['webhook_url'] = LFC_DEFAULT_WEBHOOK_URL;
+	}
+
+	return $opts;
 }
 
 /**
