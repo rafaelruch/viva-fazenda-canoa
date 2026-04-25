@@ -5,6 +5,12 @@
    CTA: Corten #A7522C (terceira cor elegante)
    ============================================================ */
 
+/* Garante que o atributo HTML `hidden` sempre force display:none.
+   Sem isto, regras como `.modal__success { display:flex }` vencem
+   por especificidade e o estado de sucesso aparece visível mesmo
+   com `hidden` no elemento. */
+[hidden] { display: none !important; }
+
 :root {
   /* Colors */
   --c-bg:       #FAFAF7;
