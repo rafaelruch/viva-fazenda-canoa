@@ -3,7 +3,7 @@
  * Plugin Name:       Fazenda Canoa — Opções & Leads
  * Plugin URI:        https://lago.fazendacanoa.com.br
  * Description:       Opções centrais (WhatsApp, e-mail, horário, URL do book) + CPT para captação de leads + endpoint AJAX + webhook ImobMeet CRM (default) com fallback p/ admin. Usado pelos temas fazenda-canoa e viva-fazenda-canoa.
- * Version:           1.0.1
+ * Version:           1.0.2
  * Author:            RUCH
  * Author URI:        https://ruch.digital
  * License:           GPL-2.0-or-later
@@ -16,7 +16,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'LFC_VERSION', '1.0.1' );
+define( 'LFC_VERSION', '1.0.2' );
 define( 'LFC_DEFAULT_WEBHOOK_URL', 'https://crm.imobmeet.com.br/webhook/formulario/d71ec64fcce5855c24d3ce8a9404113bcea6bc35' );
 define( 'LFC_PATH', plugin_dir_path( __FILE__ ) );
 define( 'LFC_URL', plugin_dir_url( __FILE__ ) );

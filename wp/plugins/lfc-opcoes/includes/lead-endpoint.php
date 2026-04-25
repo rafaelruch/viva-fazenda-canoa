@@ -74,9 +74,12 @@ function lfc_handle_lead_submit() {
 		lfc_dispatch_meta_capi( $post_id, $opts, compact( 'nome', 'telefone', 'email', 'interesse', 'contexto', 'event_id' ) );
 	}
 
-	// Dispara webhook externo (n8n/RD/Zapier) se configurado
+	// Dispara webhook externo (n8n/RD/Zapier/ImobMeet) se configurado
+	// Sempre grava webhook_status para facilitar debug — mesmo quando skipped.
 	if ( ! empty( $opts['webhook_url'] ) ) {
 		lfc_dispatch_webhook( $post_id, $opts );
+	} else {
+		update_post_meta( $post_id, 'webhook_status', 'skipped: webhook_url vazio em lfc_get_options()' );
 	}
 
 	wp_send_json_success( [
@@ -184,14 +187,23 @@ function lfc_dispatch_webhook( $post_id, $opts ) {
 		$headers['X-LFC-Secret'] = $opts['webhook_secret'];
 	}
 
+	// Síncrono com timeout curto (4s): em alguns hosts FastCGI/FPM, requests
+	// async com `blocking:false` são cortadas quando o worker termina via
+	// wp_send_json_success(). 4s é tempo suficiente pro ImobMeet/n8n responder.
 	$response = wp_remote_post( $opts['webhook_url'], [
-		'headers'  => $headers,
-		'body'     => wp_json_encode( $payload ),
-		'timeout'  => 8,
-		'blocking' => false, // fire-and-forget
+		'headers' => $headers,
+		'body'    => wp_json_encode( $payload ),
+		'timeout' => 4,
 	] );
 
-	$status = is_wp_error( $response ) ? 'error: ' . $response->get_error_message() : 'dispatched';
+	if ( is_wp_error( $response ) ) {
+		$status = 'error: ' . $response->get_error_message();
+	} else {
+		$code = wp_remote_retrieve_response_code( $response );
+		$status = ( $code >= 200 && $code < 300 )
+			? 'dispatched (HTTP ' . $code . ')'
+			: 'http_error: ' . $code . ' — ' . wp_remote_retrieve_response_message( $response );
+	}
 	update_post_meta( $post_id, 'webhook_status', $status );
 }
 

@@ -7,7 +7,7 @@ Esta pasta contém os **pacotes ZIP prontos** para upload via WordPress admin. U
 | Arquivo | Versão | O que é | Tamanho |
 |---|---|---|---|
 | `viva-fazenda-canoa-theme.zip` | **1.2.1** | Tema (block theme emocional, hero com vídeo, Cormorant + Manrope) | ~24 MB |
-| `lfc-opcoes-plugin.zip`        | **1.0.1** | Plugin de opções + leads + webhook ImobMeet (compartilhado com LP1) | ~10 KB |
+| `lfc-opcoes-plugin.zip`        | **1.0.2** | Plugin de opções + leads + webhook ImobMeet (compartilhado com LP1) | ~10 KB |
 
 ### Mudanças na v1.2.0 (tema) e v1.0.1 (plugin) — 2026-04-24
 
