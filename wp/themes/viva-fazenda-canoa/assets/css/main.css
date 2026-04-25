@@ -5,11 +5,24 @@
    CTA: Corten #A7522C (terceira cor elegante)
    ============================================================ */
 
-/* Garante que o atributo HTML `hidden` sempre force display:none.
-   Sem isto, regras como `.modal__success { display:flex }` vencem
-   por especificidade e o estado de sucesso aparece visível mesmo
-   com `hidden` no elemento. */
+/* Garante que o atributo HTML `hidden` sempre force display:none. */
 [hidden] { display: none !important; }
+
+/* Estado de campo inválido (telefone com dígitos insuficientes etc.). */
+.field--invalid,
+input.field--invalid {
+  border-color: #E07A7A !important;
+  animation: fieldShake 360ms cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+@keyframes fieldShake {
+  10%, 90% { transform: translateX(-1px); }
+  20%, 80% { transform: translateX(2px); }
+  30%, 50%, 70% { transform: translateX(-3px); }
+  40%, 60% { transform: translateX(3px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .field--invalid, input.field--invalid { animation: none; }
+}
 
 :root {
   /* Colors */

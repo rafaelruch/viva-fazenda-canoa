@@ -91,6 +91,13 @@
     e.preventDefault();
     const data = Object.fromEntries(new FormData(form));
     if (!data.nome || !data.telefone || !data.interesse) { alert('Preencha nome, WhatsApp e interesse.'); return; }
+    const phoneDigits = String(data.telefone).replace(/\D/g, '');
+    if (phoneDigits.length < 10 || phoneDigits.length > 11) {
+      alert('WhatsApp inválido. Informe DDD + número (10 ou 11 dígitos).');
+      const tel = form.querySelector('input[name="telefone"]');
+      if (tel) { tel.classList.add('field--invalid'); tel.focus(); setTimeout(() => tel.classList.remove('field--invalid'), 1200); }
+      return;
+    }
     form.querySelector('.lead-form__success').hidden = false;
     form.querySelector('button[type="submit"]').disabled = true;
     // Webhook ImobMeet é disparado server-side pelo plugin lfc-opcoes-plugin via lfc_submit_lead.
@@ -238,6 +245,13 @@
     const data = Object.fromEntries(new FormData(modalForm));
     const isBook = modal.querySelector('.modal__panel').classList.contains('modal--book');
     if (!data.nome || !data.telefone) { alert('Preencha nome e WhatsApp.'); return; }
+    const phoneDigits = String(data.telefone).replace(/\D/g, '');
+    if (phoneDigits.length < 10 || phoneDigits.length > 11) {
+      alert('WhatsApp inválido. Informe DDD + número (10 ou 11 dígitos).');
+      const tel = modalForm.querySelector('input[name="telefone"]');
+      if (tel) { tel.classList.add('field--invalid'); tel.focus(); setTimeout(() => tel.classList.remove('field--invalid'), 1200); }
+      return;
+    }
     if (!isBook && !data.interesse) { alert('Selecione seu interesse.'); return; }
     if (isBook) data.interesse = 'Book do empreendimento';
 
