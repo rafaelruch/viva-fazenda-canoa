@@ -251,7 +251,9 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 .field input:focus,.field select:focus{outline:none;border-color:var(--c-corten)}
 .field select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none' stroke='%23ffffff' stroke-width='1.5'><path d='M1 1l5 5 5-5'/></svg>");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem}
 .lead-form__disclaimer{font-size:0.74rem;color:rgba(255,255,255,0.45);text-align:center}
-.lead-form__success{background:rgba(46,143,79,0.12);border:1px solid rgba(46,143,79,0.3);border-radius:var(--r-sm);padding:var(--s-4);color:#A8E8B8;text-align:center;font-size:0.92rem}
+.lead-form__success{background:rgba(46,143,79,0.12);border:1px solid rgba(46,143,79,0.3);border-radius:var(--r-sm);padding:var(--s-4);color:#A8E8B8;text-align:center;font-size:0.92rem;animation:leadSuccessReveal 380ms cubic-bezier(0.22,1,0.36,1) both}
+@keyframes leadSuccessReveal{0%{opacity:0;transform:translateY(-6px) scale(0.98)}100%{opacity:1;transform:translateY(0) scale(1)}}
+@media (prefers-reduced-motion: reduce){.lead-form__success{animation:none}}
 
 /* ============================================================ 6. DEPOIMENTOS */
 .testimonials{padding:var(--s-10) var(--s-5);background:var(--c-bg)}
@@ -454,11 +456,14 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 .modal__submit{margin-top:var(--s-3)}
 .modal__disclaimer{font-size:0.72rem;color:rgba(255,255,255,0.35);text-align:center;margin-top:var(--s-2)}
 
-.modal__success{display:flex;flex-direction:column;align-items:center;text-align:center;padding:var(--s-6) var(--s-3);gap:var(--s-4)}
-.modal__success-icon{width:64px;height:64px;border-radius:50%;background:rgba(46,143,79,0.15);color:var(--c-ok);display:flex;align-items:center;justify-content:center;animation:successPop 600ms var(--ease-spring)}
+.modal__success{display:flex;flex-direction:column;align-items:center;text-align:center;padding:var(--s-6) var(--s-3);gap:var(--s-4);animation:successReveal 420ms cubic-bezier(0.22,1,0.36,1) both}
+@keyframes successReveal{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:translateY(0)}}
+.modal__success-icon{width:64px;height:64px;border-radius:50%;background:rgba(46,143,79,0.15);color:var(--c-ok);display:flex;align-items:center;justify-content:center;animation:successPop 600ms var(--ease-spring) 120ms both}
 @keyframes successPop{0%{transform:scale(0)}60%{transform:scale(1.15)}100%{transform:scale(1)}}
-.modal__success h3{font-family:var(--ff-display);font-style:italic;font-size:1.5rem;font-weight:400;color:#fff}
-.modal__success p{color:rgba(255,255,255,0.65);font-size:0.92rem}
+@keyframes successText{0%{opacity:0;transform:translateY(6px)}100%{opacity:1;transform:translateY(0)}}
+@media (prefers-reduced-motion: reduce){.modal__success,.modal__success-icon,.modal__success h3,.modal__success p{animation:none}}
+.modal__success h3{font-family:var(--ff-display);font-style:italic;font-size:1.5rem;font-weight:400;color:#fff;animation:successText 360ms ease-out 200ms both}
+.modal__success p{color:rgba(255,255,255,0.65);font-size:0.92rem;animation:successText 360ms ease-out 280ms both}
 body.modal-open{overflow:hidden}
 
 /* Modo book — esconde email e interesse */

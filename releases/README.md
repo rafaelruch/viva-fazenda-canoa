@@ -6,13 +6,16 @@ Esta pasta contém os **pacotes ZIP prontos** para upload via WordPress admin. U
 
 | Arquivo | Versão | O que é | Tamanho |
 |---|---|---|---|
-| `viva-fazenda-canoa-theme.zip` | **1.1.1** | Tema (block theme emocional, hero com vídeo, Cormorant + Manrope) | ~24 MB |
+| `viva-fazenda-canoa-theme.zip` | **1.2.0** | Tema (block theme emocional, hero com vídeo, Cormorant + Manrope) | ~24 MB |
 | `lfc-opcoes-plugin.zip`        | **1.0.1** | Plugin de opções + leads + webhook ImobMeet (compartilhado com LP1) | ~10 KB |
 
-### Mudanças na v1.1.1 (tema) e v1.0.1 (plugin) — 2026-04-24
+### Mudanças na v1.2.0 (tema) e v1.0.1 (plugin) — 2026-04-24
 
-- **Tema v1.1.1 (patch):** corrigido bug visual em que o `modal__success` aparecia visível mesmo com atributo `hidden` no HTML (CSS `display:flex` vencia o `[hidden]` por especificidade). Adicionada regra `[hidden] { display:none !important }` para garantir o comportamento correto.
-- **Tema v1.1.0:** removido o redirect para WhatsApp após submit dos formulários (form principal `capture.php` + modal `capture-modal`). Agora o form mostra apenas a confirmação ("Recebemos seu contato! Em breve um consultor entra em contato com você.") e o lead vai pro CRM via webhook do plugin.
+- **Tema v1.2.0 (feature):**
+  - Máscara de telefone BR auto-aplicada nos inputs `[type="tel"]` enquanto o usuário digita: `(62) 99999-9999`. Funciona no form principal `capture.php` e no modal `capture-modal`.
+  - Animação smooth de entrada do estado de sucesso (`.modal__success` e `.lead-form__success`): fade + slide-up no container, scale-pop no ícone, fade escalonado no título e parágrafo. Respeita `prefers-reduced-motion`.
+- **Tema v1.1.1 (patch):** corrigido bug visual em que o `modal__success` aparecia visível mesmo com atributo `hidden` no HTML.
+- **Tema v1.1.0:** removido o redirect para WhatsApp após submit dos formulários. Agora o form mostra apenas a confirmação ("Recebemos seu contato! Em breve um consultor entra em contato com você.") e o lead vai pro CRM via webhook do plugin.
 - **Plugin v1.0.1:** webhook ImobMeet hardcoded como default (`LFC_DEFAULT_WEBHOOK_URL`) com fallback. Leads chegam ao CRM mesmo sem configurar nada no admin.
 
 ---

@@ -269,4 +269,25 @@
   try { if (localStorage.getItem(FK) === '1') { floatBar?.classList.add('is-collapsed'); requestAnimationFrame(() => floatMini?.classList.add('is-visible')); } } catch(_){}
 
   // Ripple removido nesta LP — estética cinematográfica não combina
+
+  // --- 11. Máscara de telefone BR ---
+  // Formato: (XX) XXXXX-XXXX (celular 11 dígitos) ou (XX) XXXX-XXXX (fixo 10)
+  const maskPhoneBR = (raw) => {
+    const d = String(raw || '').replace(/\D/g, '').slice(0, 11);
+    if (d.length === 0) return '';
+    if (d.length <= 2) return `(${d}`;
+    if (d.length <= 6) return `(${d.slice(0, 2)}) ${d.slice(2)}`;
+    if (d.length <= 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
+    return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
+  };
+  document.querySelectorAll('input[type="tel"]').forEach((input) => {
+    const apply = () => {
+      const before = input.value;
+      const after = maskPhoneBR(before);
+      if (before !== after) input.value = after;
+    };
+    input.addEventListener('input', apply);
+    input.addEventListener('blur', apply);
+    if (input.value) apply();
+  });
 })();
