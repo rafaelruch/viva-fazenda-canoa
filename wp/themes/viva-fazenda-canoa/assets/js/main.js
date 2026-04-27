@@ -5,6 +5,25 @@
 (() => {
   'use strict';
 
+  // UTM Tracking: captura UTMs da URL e persiste em localStorage.
+  // Spec do cliente — exatamente os 7 utm_* dos exemplos Meta Ads + Google Ads.
+  const UTM_KEYS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','utm_device','utm_network'];
+  const UTM_STORAGE_KEY = 'fcanoa_viva_utms';
+  const captureUTMs = () => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const fromURL = {};
+      let hasAny = false;
+      UTM_KEYS.forEach(k => { const v = params.get(k); if (v) { fromURL[k] = v; hasAny = true; } });
+      if (hasAny) { try { localStorage.setItem(UTM_STORAGE_KEY, JSON.stringify(fromURL)); } catch(_){} return fromURL; }
+      const stored = localStorage.getItem(UTM_STORAGE_KEY);
+      return stored ? JSON.parse(stored) : {};
+    } catch (_) { return {}; }
+  };
+  const getUTMPayload = () => ({ ...captureUTMs(), landing_url: window.location.href });
+  captureUTMs();
+  window.fcGetUTMPayload = getUTMPayload;
+
   // Analytics: dispara Meta Pixel Lead + Google Ads conversion com event_id (deduplicação CAPI)
   const fireLeadEvents = (data) => {
     return new Promise((resolve) => {
@@ -80,7 +99,7 @@
     if (window.FC_AJAX) {
       fetch(window.FC_AJAX.url, {
         method: 'POST',
-        body: new URLSearchParams({ action: 'lfc_submit_lead', _nonce: window.FC_AJAX.nonce, ...data }),
+        body: new URLSearchParams({ action: 'lfc_submit_lead', _nonce: window.FC_AJAX.nonce, ...data, ...getUTMPayload() }),
         credentials: 'same-origin',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       }).catch(() => {});

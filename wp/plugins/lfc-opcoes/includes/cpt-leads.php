@@ -47,13 +47,15 @@ add_action( 'init', 'lfc_register_cpt_leads' );
  */
 add_filter( 'manage_lfc_lead_posts_columns', function ( $cols ) {
 	$new = [];
-	$new['cb']        = $cols['cb'] ?? '';
-	$new['title']     = __( 'Nome', 'lfc-opcoes' );
-	$new['telefone']  = __( 'WhatsApp', 'lfc-opcoes' );
-	$new['email']     = __( 'E-mail', 'lfc-opcoes' );
-	$new['interesse'] = __( 'Interesse', 'lfc-opcoes' );
-	$new['contexto']  = __( 'Origem', 'lfc-opcoes' );
-	$new['date']      = __( 'Data', 'lfc-opcoes' );
+	$new['cb']            = $cols['cb'] ?? '';
+	$new['title']         = __( 'Nome', 'lfc-opcoes' );
+	$new['telefone']      = __( 'WhatsApp', 'lfc-opcoes' );
+	$new['email']         = __( 'E-mail', 'lfc-opcoes' );
+	$new['interesse']     = __( 'Interesse', 'lfc-opcoes' );
+	$new['contexto']      = __( 'Origem', 'lfc-opcoes' );
+	$new['utm_source']    = __( 'UTM Source', 'lfc-opcoes' );
+	$new['utm_campaign']  = __( 'UTM Campaign', 'lfc-opcoes' );
+	$new['date']          = __( 'Data', 'lfc-opcoes' );
 	return $new;
 } );
 
@@ -71,8 +73,10 @@ add_action( 'manage_lfc_lead_posts_custom_column', function ( $col, $post_id ) {
 }, 10, 2 );
 
 add_filter( 'manage_edit-lfc_lead_sortable_columns', function ( $cols ) {
-	$cols['interesse'] = 'interesse';
-	$cols['contexto']  = 'contexto';
+	$cols['interesse']    = 'interesse';
+	$cols['contexto']     = 'contexto';
+	$cols['utm_source']   = 'utm_source';
+	$cols['utm_campaign'] = 'utm_campaign';
 	return $cols;
 } );
 
@@ -113,4 +117,35 @@ function lfc_render_lead_metabox( $post ) {
 		if ( $val ) echo '<tr><th scope="row">' . esc_html( $label ) . '</th><td><code>' . esc_html( $val ) . '</code></td></tr>';
 	}
 	echo '</tbody></table>';
+
+	// Seção dedicada para UTMs / atribuição de campanha
+	$utm_fields = [
+		'utm_source'   => 'utm_source',
+		'utm_medium'   => 'utm_medium',
+		'utm_campaign' => 'utm_campaign',
+		'utm_content'  => 'utm_content',
+		'utm_term'     => 'utm_term',
+		'utm_device'   => 'utm_device',
+		'utm_network'  => 'utm_network',
+		'landing_url'  => 'Landing URL',
+	];
+	$has_any_utm = false;
+	foreach ( $utm_fields as $key => $_ ) {
+		if ( get_post_meta( $post->ID, $key, true ) ) { $has_any_utm = true; break; }
+	}
+	echo '<h3 style="margin-top:1.5em;border-top:1px solid #ddd;padding-top:1em">' . esc_html__( 'UTMs & Atribuição', 'lfc-opcoes' ) . '</h3>';
+	if ( ! $has_any_utm ) {
+		echo '<p style="color:#999"><em>' . esc_html__( 'Sem UTMs capturados — lead acessou diretamente ou veio de origem orgânica/direta.', 'lfc-opcoes' ) . '</em></p>';
+	} else {
+		echo '<table class="form-table"><tbody>';
+		foreach ( $utm_fields as $key => $label ) {
+			$val = get_post_meta( $post->ID, $key, true );
+			if ( $val === '' || $val === false ) continue;
+			$display = $key === 'landing_url'
+				? '<a href="' . esc_url( $val ) . '" target="_blank" rel="noopener">' . esc_html( $val ) . ' ↗</a>'
+				: '<code>' . esc_html( $val ) . '</code>';
+			echo '<tr><th scope="row">' . esc_html( $label ) . '</th><td>' . $display . '</td></tr>'; // phpcs:ignore
+		}
+		echo '</tbody></table>';
+	}
 }

@@ -64,6 +64,30 @@ function lfc_handle_lead_submit() {
 	// Salva event_id na meta
 	if ( $event_id ) update_post_meta( $post_id, 'event_id', $event_id );
 
+	// Salva campos UTM (capturados pelo JS via URL/localStorage)
+	// Spec do cliente — exatamente os parâmetros dos exemplos Meta Ads + Google Ads:
+	//   Meta:   utm_source, utm_medium, utm_campaign, utm_content
+	//   Google: utm_source, utm_medium, utm_campaign, utm_term, utm_content, utm_device, utm_network
+	$utm_keys = [
+		'utm_source',
+		'utm_medium',
+		'utm_campaign',
+		'utm_content',
+		'utm_term',
+		'utm_device',
+		'utm_network',
+	];
+	foreach ( $utm_keys as $key ) {
+		$val = sanitize_text_field( $_POST[ $key ] ?? '' );
+		if ( $val !== '' ) {
+			update_post_meta( $post_id, $key, $val );
+		}
+	}
+	// Salva a landing URL (URL completa da página onde o form foi submetido)
+	if ( ! empty( $_POST['landing_url'] ) ) {
+		update_post_meta( $post_id, 'landing_url', esc_url_raw( $_POST['landing_url'] ) );
+	}
+
 	$opts = lfc_get_options();
 	// Se o tema definiu constantes hardcoded, usa elas (prevalecem sobre opções do admin)
 	if ( defined( 'FC_META_PIXEL_ID' ) )   $opts['meta_pixel_id']   = FC_META_PIXEL_ID;
@@ -179,6 +203,22 @@ function lfc_dispatch_webhook( $post_id, $opts ) {
 		'timestamp' => current_time( 'c' ),
 		'site'      => home_url(),
 	];
+
+	// Anexa campos UTM ao payload (string vazia se ausente).
+	// Permite que o ImobMeet faça atribuição de canal/campanha por lead.
+	$utm_keys = [
+		'utm_source',
+		'utm_medium',
+		'utm_campaign',
+		'utm_content',
+		'utm_term',
+		'utm_device',
+		'utm_network',
+		'landing_url',
+	];
+	foreach ( $utm_keys as $key ) {
+		$payload[ $key ] = (string) get_post_meta( $post_id, $key, true );
+	}
 
 	$headers = [
 		'Content-Type' => 'application/json',

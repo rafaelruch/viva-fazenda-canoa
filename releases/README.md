@@ -6,10 +6,15 @@ Esta pasta contém os **pacotes ZIP prontos** para upload via WordPress admin. U
 
 | Arquivo | Versão | O que é | Tamanho |
 |---|---|---|---|
-| `viva-fazenda-canoa-theme.zip` | **1.2.1** | Tema (block theme emocional, hero com vídeo, Cormorant + Manrope) | ~24 MB |
-| `lfc-opcoes-plugin.zip`        | **1.0.2** | Plugin de opções + leads + webhook ImobMeet (compartilhado com LP1) | ~10 KB |
+| `viva-fazenda-canoa-theme.zip` | **1.3.0** | Tema (block theme emocional, hero com vídeo, Cormorant + Manrope) | ~24 MB |
+| `lfc-opcoes-plugin.zip`        | **1.0.3** | Plugin de opções + leads + webhook ImobMeet + UTM tracking (compartilhado com LP1) | ~11 KB |
 
-### Mudanças na v1.2.0 (tema) e v1.0.1 (plugin) — 2026-04-24
+### Mudanças na v1.3.0 (tema) e v1.0.3 (plugin) — 2026-04-27
+
+- **Tema v1.3.0 (feature):** captura automática de UTMs da URL na entrada e persistência em `localStorage` (key `fcanoa_viva_utms`). Anexa os 7 parâmetros (`utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`, `utm_device`, `utm_network`) + `landing_url` no payload do submit do form principal e do modal.
+- **Plugin v1.0.3 (feature):** aceita campos UTM no endpoint AJAX, salva como meta no CPT `lfc_lead`, inclui no payload do webhook ImobMeet, exibe seção "UTMs & Atribuição" no metabox de cada lead, adiciona colunas "UTM Source" e "UTM Campaign" na lista de leads.
+
+### Mudanças anteriores (v1.2.0 — v1.0.2)
 
 - **Tema v1.2.0 (feature):**
   - Máscara de telefone BR auto-aplicada nos inputs `[type="tel"]` enquanto o usuário digita: `(62) 99999-9999`. Funciona no form principal `capture.php` e no modal `capture-modal`.
