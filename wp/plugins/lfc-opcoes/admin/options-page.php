@@ -40,8 +40,10 @@ function lfc_sanitize_options( $input ) {
 	$clean['horario']            = sanitize_text_field( $input['horario'] ?? '' );
 	$clean['mensagem_wa_padrao'] = sanitize_text_field( $input['mensagem_wa_padrao'] ?? '' );
 	$clean['book_url']           = esc_url_raw( $input['book_url'] ?? '' );
-	$clean['webhook_url']        = esc_url_raw( $input['webhook_url'] ?? '' );
-	$clean['webhook_secret']     = sanitize_text_field( $input['webhook_secret'] ?? '' );
+	$clean['webhook_url']             = esc_url_raw( $input['webhook_url'] ?? '' );
+	$clean['webhook_secret']          = sanitize_text_field( $input['webhook_secret'] ?? '' );
+	$clean['webhook_url_whatsapp']    = esc_url_raw( $input['webhook_url_whatsapp'] ?? '' );
+	$clean['webhook_secret_whatsapp'] = sanitize_text_field( $input['webhook_secret_whatsapp'] ?? '' );
 	// SEO / Analytics — aceita apenas alfanuméricos + hífen
 	$clean['gsc_verification']   = preg_replace( '/[^A-Za-z0-9_\-]/', '', $input['gsc_verification'] ?? '' );
 	$clean['ga4_id']             = preg_replace( '/[^A-Za-z0-9\-]/', '', $input['ga4_id'] ?? '' );
@@ -132,6 +134,26 @@ function lfc_render_options_page() {
 					<td>
 						<input type="text" id="lfc_secret" name="lfc_opcoes[webhook_secret]" value="<?php echo esc_attr( $opts['webhook_secret'] ); ?>" class="regular-text" placeholder="token-secreto-qualquer">
 						<p class="description"><?php esc_html_e( 'Enviado no header X-LFC-Secret. Use no n8n/RD para validar que o request veio deste site.', 'lfc-opcoes' ); ?></p>
+					</td>
+				</tr>
+			</table>
+
+			<h2 class="title"><?php esc_html_e( 'Webhook secundário — fluxo WhatsApp (somente site Lago)', 'lfc-opcoes' ); ?></h2>
+			<p class="description">
+				<?php esc_html_e( 'Endpoint dedicado para leads capturados antes do redirect para o WhatsApp (botões/links wa.me do site Lago). Disparado quando o front envia flow=whatsapp no submit. Permite roteamento separado no CRM.', 'lfc-opcoes' ); ?>
+			</p>
+			<table class="form-table" role="presentation">
+				<tr>
+					<th scope="row"><label for="lfc_webhook_wa"><?php esc_html_e( 'URL do webhook WhatsApp', 'lfc-opcoes' ); ?></label></th>
+					<td>
+						<input type="url" id="lfc_webhook_wa" name="lfc_opcoes[webhook_url_whatsapp]" value="<?php echo esc_attr( $opts['webhook_url_whatsapp'] ); ?>" class="large-text" placeholder="https://crm.imobmeet.com.br/webhook/formulario/...">
+						<p class="description"><?php esc_html_e( 'Default ImobMeet já configurado. Deixe vazio para usar o default hardcoded.', 'lfc-opcoes' ); ?></p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="lfc_secret_wa"><?php esc_html_e( 'Secret do webhook WhatsApp', 'lfc-opcoes' ); ?></label></th>
+					<td>
+						<input type="text" id="lfc_secret_wa" name="lfc_opcoes[webhook_secret_whatsapp]" value="<?php echo esc_attr( $opts['webhook_secret_whatsapp'] ); ?>" class="regular-text" placeholder="token-secreto-whatsapp">
 					</td>
 				</tr>
 			</table>

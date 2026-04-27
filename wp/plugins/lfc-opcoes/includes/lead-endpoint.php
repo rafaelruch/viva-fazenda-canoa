@@ -33,6 +33,9 @@ function lfc_handle_lead_submit() {
 	$contexto  = sanitize_text_field( $_POST['contexto'] ?? 'geral' );
 	$source    = sanitize_text_field( $_POST['source'] ?? 'modal' );
 	$event_id  = sanitize_text_field( $_POST['event_id'] ?? '' );
+	// flow: 'main' (default — webhook principal) ou 'whatsapp' (webhook secundário, somente site Lago)
+	$flow      = sanitize_text_field( $_POST['flow'] ?? 'main' );
+	if ( ! in_array( $flow, [ 'main', 'whatsapp' ], true ) ) $flow = 'main';
 
 	if ( empty( $nome ) || empty( $telefone ) ) {
 		wp_send_json_error( [ 'message' => 'Preencha nome e WhatsApp.' ], 422 );
@@ -51,6 +54,7 @@ function lfc_handle_lead_submit() {
 			'interesse'  => $interesse,
 			'contexto'   => $contexto,
 			'source'     => $source,
+			'flow'       => $flow,
 			'ip'         => isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( $_SERVER['REMOTE_ADDR'] ) : '',
 			'user_agent' => isset( $_SERVER['HTTP_USER_AGENT'] ) ? sanitize_text_field( $_SERVER['HTTP_USER_AGENT'] ) : '',
 			'referrer'   => isset( $_SERVER['HTTP_REFERER'] ) ? esc_url_raw( $_SERVER['HTTP_REFERER'] ) : '',
@@ -98,12 +102,21 @@ function lfc_handle_lead_submit() {
 		lfc_dispatch_meta_capi( $post_id, $opts, compact( 'nome', 'telefone', 'email', 'interesse', 'contexto', 'event_id' ) );
 	}
 
-	// Dispara webhook externo (n8n/RD/Zapier/ImobMeet) se configurado
-	// Sempre grava webhook_status para facilitar debug — mesmo quando skipped.
-	if ( ! empty( $opts['webhook_url'] ) ) {
-		lfc_dispatch_webhook( $post_id, $opts );
+	// Dispara webhook externo — escolhe URL/secret baseado no flow.
+	//   flow=main      → webhook_url       (formulários completos: consultor, modal, capture, book)
+	//   flow=whatsapp  → webhook_url_whatsapp (captura mínima antes de redirect pra wa.me — apenas site Lago)
+	// Sempre grava webhook_status para facilitar debug.
+	if ( $flow === 'whatsapp' ) {
+		$wh_url    = $opts['webhook_url_whatsapp'] ?? '';
+		$wh_secret = $opts['webhook_secret_whatsapp'] ?? '';
 	} else {
-		update_post_meta( $post_id, 'webhook_status', 'skipped: webhook_url vazio em lfc_get_options()' );
+		$wh_url    = $opts['webhook_url'] ?? '';
+		$wh_secret = $opts['webhook_secret'] ?? '';
+	}
+	if ( ! empty( $wh_url ) ) {
+		lfc_dispatch_webhook( $post_id, [ 'webhook_url' => $wh_url, 'webhook_secret' => $wh_secret, 'flow' => $flow ] );
+	} else {
+		update_post_meta( $post_id, 'webhook_status', 'skipped: webhook_url (' . $flow . ') vazio em lfc_get_options()' );
 	}
 
 	wp_send_json_success( [
@@ -236,13 +249,14 @@ function lfc_dispatch_webhook( $post_id, $opts ) {
 		'timeout' => 4,
 	] );
 
+	$flow_label = isset( $opts['flow'] ) ? ' [' . $opts['flow'] . ']' : '';
 	if ( is_wp_error( $response ) ) {
-		$status = 'error: ' . $response->get_error_message();
+		$status = 'error' . $flow_label . ': ' . $response->get_error_message();
 	} else {
 		$code = wp_remote_retrieve_response_code( $response );
 		$status = ( $code >= 200 && $code < 300 )
-			? 'dispatched (HTTP ' . $code . ')'
-			: 'http_error: ' . $code . ' — ' . wp_remote_retrieve_response_message( $response );
+			? 'dispatched' . $flow_label . ' (HTTP ' . $code . ')'
+			: 'http_error' . $flow_label . ': ' . $code . ' — ' . wp_remote_retrieve_response_message( $response );
 	}
 	update_post_meta( $post_id, 'webhook_status', $status );
 }

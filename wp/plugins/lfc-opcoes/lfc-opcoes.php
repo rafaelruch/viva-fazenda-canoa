@@ -3,7 +3,7 @@
  * Plugin Name:       Fazenda Canoa — Opções & Leads
  * Plugin URI:        https://lago.fazendacanoa.com.br
  * Description:       Opções centrais (WhatsApp, e-mail, horário, URL do book) + CPT para captação de leads + endpoint AJAX + webhook ImobMeet CRM (default) com fallback p/ admin. Usado pelos temas fazenda-canoa e viva-fazenda-canoa.
- * Version:           1.0.3
+ * Version:           1.0.4
  * Author:            RUCH
  * Author URI:        https://ruch.digital
  * License:           GPL-2.0-or-later
@@ -16,8 +16,12 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'LFC_VERSION', '1.0.3' );
+define( 'LFC_VERSION', '1.0.4' );
+// Webhook principal — leads capturados via formulários (consultor, modal, capture, book).
 define( 'LFC_DEFAULT_WEBHOOK_URL', 'https://crm.imobmeet.com.br/webhook/formulario/d71ec64fcce5855c24d3ce8a9404113bcea6bc35' );
+// Webhook secundário — leads capturados antes de redirect para WhatsApp (apenas site Lago).
+// Selecionado quando o front envia flow=whatsapp no POST. O site Viva não usa este fluxo.
+define( 'LFC_DEFAULT_WEBHOOK_WHATSAPP_URL', 'https://crm.imobmeet.com.br/webhook/formulario/14c2adb796f2166de4b95ceb5c2a6efaf1ef7719' );
 define( 'LFC_PATH', plugin_dir_path( __FILE__ ) );
 define( 'LFC_URL', plugin_dir_url( __FILE__ ) );
 
@@ -36,9 +40,12 @@ function lfc_get_options() {
 		'telefone'            => '',
 		'horario'             => 'Seg a Sáb, 9h às 19h',
 		'mensagem_wa_padrao'  => 'Olá! Vim pela landing page da Fazenda Canoa',
-		'book_url'            => '',
-		'webhook_url'         => LFC_DEFAULT_WEBHOOK_URL,
-		'webhook_secret'      => '',
+		'book_url'                 => '',
+		'webhook_url'              => LFC_DEFAULT_WEBHOOK_URL,
+		'webhook_secret'           => '',
+		// Webhook secundário (WhatsApp redirect — somente site Lago)
+		'webhook_url_whatsapp'     => LFC_DEFAULT_WEBHOOK_WHATSAPP_URL,
+		'webhook_secret_whatsapp'  => '',
 		// SEO / Analytics (hardcoded — ativos por padrão, sem precisar configurar no admin)
 		'gsc_verification'    => '',
 		'ga4_id'              => '',
@@ -53,6 +60,9 @@ function lfc_get_options() {
 	// Fallback: se admin gravou webhook_url vazio, garante o default (instalações pré-existentes).
 	if ( empty( $opts['webhook_url'] ) ) {
 		$opts['webhook_url'] = LFC_DEFAULT_WEBHOOK_URL;
+	}
+	if ( empty( $opts['webhook_url_whatsapp'] ) ) {
+		$opts['webhook_url_whatsapp'] = LFC_DEFAULT_WEBHOOK_WHATSAPP_URL;
 	}
 
 	return $opts;
