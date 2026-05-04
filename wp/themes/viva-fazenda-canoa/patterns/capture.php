@@ -28,7 +28,7 @@
         </li>
         <li>
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
-          Lotes a partir de R$ 360.000
+          Lotes a partir de R$ 419.000,00
         </li>
       </ul>
     </div>

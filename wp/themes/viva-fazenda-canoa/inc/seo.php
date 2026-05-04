@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 add_action( 'wp_head', function () {
 	$opts = function_exists( 'lfc_get_options' ) ? lfc_get_options() : [];
-	$description = 'Condomínio Reserva Fazenda Canoa — Lotes a partir de R$ 360.000 em Silvânia/GO, às margens do Lago Corumbá IV. Infraestrutura de resort entregue: Beach Club, Marina, Heliponto ANAC, Vinícola Costa Cave.';
+	$description = 'Condomínio Reserva Fazenda Canoa — Lotes a partir de R$ 419.000,00 em Silvânia/GO, às margens do Lago Corumbá IV. Infraestrutura de resort entregue: Beach Club, Marina, Heliponto ANAC, Vinícola Costa Cave.';
 	$canonical   = home_url( add_query_arg( null, null ) );
 
 	echo "\n<!-- SEO (Fazenda Canoa) -->\n";
@@ -45,7 +45,7 @@ add_action( 'wp_head', function () {
  */
 add_action( 'wp_head', function () {
 	$title = wp_get_document_title();
-	$desc  = 'Condomínio Reserva Fazenda Canoa — Lotes a partir de R$ 360.000 em Silvânia/GO, às margens do Lago Corumbá IV. Infraestrutura de resort entregue.';
+	$desc  = 'Condomínio Reserva Fazenda Canoa — Lotes a partir de R$ 419.000,00 em Silvânia/GO, às margens do Lago Corumbá IV. Infraestrutura de resort entregue.';
 	$url   = home_url( add_query_arg( null, null ) );
 	$og    = get_theme_file_uri( 'assets/fotos/22.jpg' );
 
@@ -257,7 +257,7 @@ add_action( 'wp_head', function () {
 					'name'  => 'Qual a faixa de preço dos lotes?',
 					'acceptedAnswer' => [
 						'@type' => 'Answer',
-						'text'  => 'Lotes a partir de R$ 360.000, com valores que variam conforme tipologia (frente-lago, vista-lago, bosque) e disponibilidade. Parcelamento direto com a incorporadora FRSC.',
+						'text'  => 'Lotes a partir de R$ 419.000,00, com valores que variam conforme tipologia (frente-lago, vista-lago, bosque) e disponibilidade. Parcelamento direto com a incorporadora FRSC.',
 					],
 				],
 				[
