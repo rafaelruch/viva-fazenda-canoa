@@ -26,7 +26,7 @@
       <p>Produção própria de vinho no condomínio. O que você serve aos amigos vem do quintal de casa.</p>
     </article>
     <article class="pg-card">
-      <div class="pg-card__img"><img src="<?php echo esc_url( get_theme_file_uri( 'assets/fotos/' ) ); ?>28.jpg" alt="Complexo esportivo" loading="lazy"></div>
+      <div class="pg-card__img"><img src="<?php echo esc_url( get_theme_file_uri( 'assets/fotos/' ) ); ?>41.jpg" alt="Comunidade no beach tennis da Fazenda Canoa" loading="lazy"></div>
       <h3>Beach Club + Marina</h3>
       <p>Piscina infinita, 2 píeres, garagem de 12 barcos com energia solar e Estaleiro Jatobá.</p>
     </article>
@@ -36,12 +36,12 @@
       <p>Saibro oficial, dimensões mundiais. Prontas para torneios. Vestiários Deca e Docol.</p>
     </article>
     <article class="pg-card">
-      <div class="pg-card__img"><img src="<?php echo esc_url( get_theme_file_uri( 'assets/fotos/' ) ); ?>33.jpg" alt="Basquete" loading="lazy"></div>
+      <div class="pg-card__img"><img src="<?php echo esc_url( get_theme_file_uri( 'assets/fotos/' ) ); ?>42.jpg" alt="Quadra poliesportiva da Praça Beija-Flor" loading="lazy"></div>
       <h3>Praça Beija-Flor</h3>
       <p>Quadras de areia, poliesportiva, basquete, campo society, anfiteatro, deck cumaru e fitness.</p>
     </article>
     <article class="pg-card">
-      <div class="pg-card__img"><img src="<?php echo esc_url( get_theme_file_uri( 'assets/fotos/' ) ); ?>05.jpg" alt="Pavilhão Social" loading="lazy"></div>
+      <div class="pg-card__img"><img src="<?php echo esc_url( get_theme_file_uri( 'assets/fotos/' ) ); ?>44.jpg" alt="Vista aérea do Pavilhão Social" loading="lazy"></div>
       <h3>Pavilhão Social</h3>
       <p>Cozinha gourmet, salas privativas, automação Archtech, átrio com paisagismo e iluminação Studio Luz.</p>
     </article>

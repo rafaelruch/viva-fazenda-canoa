@@ -17,11 +17,11 @@
   </div>
   <div class="lifestyle__gallery" id="lifestyle-carousel">
     <div class="lf-track" id="lf-track">
-      <figure class="lf-slide"><img src="<?php echo esc_url( get_theme_file_uri( 'assets/fotos/' ) ); ?>08.jpg" alt="Pavilhão Social com paisagismo" loading="lazy"></figure>
-      <figure class="lf-slide"><img src="<?php echo esc_url( get_theme_file_uri( 'assets/fotos/' ) ); ?>03.jpg" alt="Estar com vista para o lago" loading="lazy"></figure>
+      <figure class="lf-slide"><img src="<?php echo esc_url( get_theme_file_uri( 'assets/fotos/' ) ); ?>38.jpg" alt="Pôr do sol no pier — Lago Corumbá IV" loading="lazy"></figure>
+      <figure class="lf-slide"><img src="<?php echo esc_url( get_theme_file_uri( 'assets/fotos/' ) ); ?>39.jpg" alt="Contemplação do lago sob a sombra das árvores" loading="lazy"></figure>
       <figure class="lf-slide"><img src="<?php echo esc_url( get_theme_file_uri( 'assets/fotos/' ) ); ?>12.jpg" alt="Vinícola Costa Cave" loading="lazy"></figure>
-      <figure class="lf-slide"><img src="<?php echo esc_url( get_theme_file_uri( 'assets/fotos/' ) ); ?>20.jpg" alt="Interior premium" loading="lazy"></figure>
-      <figure class="lf-slide"><img src="<?php echo esc_url( get_theme_file_uri( 'assets/fotos/' ) ); ?>22.jpg" alt="Vista aérea do condomínio" loading="lazy"></figure>
+      <figure class="lf-slide"><img src="<?php echo esc_url( get_theme_file_uri( 'assets/fotos/' ) ); ?>40.jpg" alt="Deck no pôr do sol — gastronomia à beira do lago" loading="lazy"></figure>
+      <figure class="lf-slide"><img src="<?php echo esc_url( get_theme_file_uri( 'assets/fotos/' ) ); ?>43.jpg" alt="Tênis nas quadras de saibro oficiais" loading="lazy"></figure>
     </div>
     <div class="lf-dots" id="lf-dots" role="tablist" aria-label="Navegação do carrossel"></div>
   </div>
