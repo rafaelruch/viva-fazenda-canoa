@@ -190,7 +190,7 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 /* ============================================================ 3. ESTILO DE VIDA */
 .lifestyle{padding:var(--s-10) var(--s-5);background:var(--c-bg-dark);color:#fff;display:grid;grid-template-columns:1fr;gap:var(--s-8);position:relative;overflow:hidden}
 .lifestyle::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.9 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");opacity:0.04;pointer-events:none}
-.lifestyle__text{max-width:580px;margin:0 auto;position:relative;z-index:1}
+.lifestyle__text{width:100%;max-width:580px;margin:0 auto;position:relative;z-index:1}
 .lifestyle__text .eyebrow{color:var(--c-gold)}
 .lifestyle__text h2{color:#fff;font-family:var(--ff-display);font-weight:400;font-size:clamp(2rem,5vw,3rem);line-height:1.08;margin-bottom:var(--s-5)}
 .lifestyle__text h2 em{color:var(--c-gold);font-weight:500}
@@ -198,7 +198,7 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 .lifestyle__text strong{color:#fff;font-weight:500}
 
 /* Carrossel com scroll-snap nativo (mobile-first, swipe natural) */
-.lifestyle__gallery{max-width:960px;margin:0 auto;position:relative;z-index:1;display:flex;flex-direction:column;gap:var(--s-4)}
+.lifestyle__gallery{width:100%;max-width:960px;margin:0 auto;position:relative;z-index:1;display:flex;flex-direction:column;gap:var(--s-4);min-width:0}
 .lf-track{
   display:flex;
   width:100%;          /* CRÍTICO: força largura definida pra o flex:0 0 100% dos slides funcionar */

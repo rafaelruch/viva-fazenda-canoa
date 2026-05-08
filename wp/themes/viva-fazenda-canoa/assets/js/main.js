@@ -80,12 +80,22 @@
   });
 
   // --- 4. Video autoplay handler (iOS Safari fallback) ---
+  // O <video> mostra o `poster` automaticamente enquanto pausado/sem media,
+  // então NÃO esconder o elemento quando autoplay falhar — assim o poster
+  // permanece visível como background estático (sai bem em Low Power Mode,
+  // conexões lentas e iOS Safari quando o user não interagiu ainda).
   const heroVideo = document.querySelector('.hero__video');
   if (heroVideo) {
-    heroVideo.play().catch(() => {
-      // iOS pode bloquear autoplay; mostrar poster como fallback
-      heroVideo.style.display = 'none';
-    });
+    const tryPlay = () => heroVideo.play().catch(() => { /* poster fica visível */ });
+    tryPlay();
+    // Re-tenta na primeira interação do usuário (toque/scroll/click) — alguns
+    // browsers desbloqueiam autoplay após gesto. iOS Safari faz isso.
+    const events = ['touchstart', 'click', 'scroll'];
+    const onFirstInteract = () => {
+      tryPlay();
+      events.forEach((e) => document.removeEventListener(e, onFirstInteract));
+    };
+    events.forEach((e) => document.addEventListener(e, onFirstInteract, { once: true, passive: true }));
   }
 
   // --- 5. Lead form (seção Consultor) ---
