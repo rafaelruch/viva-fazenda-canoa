@@ -253,7 +253,8 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 
 /* ============================================================ 5. FORMULÁRIO (metade da página) */
 .capture{padding:var(--s-10) var(--s-5);background:var(--c-bg-dark);color:#fff}
-.capture__inner{max-width:var(--container);margin:0 auto;display:grid;grid-template-columns:1fr;gap:var(--s-8);align-items:start}
+.capture__inner{max-width:var(--container);margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr);gap:var(--s-8);align-items:start}
+.capture__text,.lead-form{min-width:0}
 .capture__text .eyebrow{color:var(--c-gold)}
 .capture__text h2{color:#fff;font-family:var(--ff-display);font-weight:400;font-size:clamp(2rem,5vw,3rem);line-height:1.08;margin-bottom:var(--s-5)}
 .capture__text h2 em{color:var(--c-gold);font-weight:500}
