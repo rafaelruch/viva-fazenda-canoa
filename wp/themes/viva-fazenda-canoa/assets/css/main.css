@@ -8,6 +8,11 @@
 /* Garante que o atributo HTML `hidden` sempre force display:none. */
 [hidden] { display: none !important; }
 
+/* Previne rolagem horizontal acidental em qualquer parte da LP.
+   Section .lifestyle e .architecture já têm overflow:hidden próprio,
+   mas qualquer outro elemento que estoure agora fica clipado. */
+html, body { overflow-x: hidden; max-width: 100%; }
+
 /* Estado de campo inválido (telefone com dígitos insuficientes etc.). */
 .field--invalid,
 input.field--invalid {
@@ -196,7 +201,10 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 .lifestyle__gallery{max-width:960px;margin:0 auto;position:relative;z-index:1;display:flex;flex-direction:column;gap:var(--s-4)}
 .lf-track{
   display:flex;
+  width:100%;          /* CRÍTICO: força largura definida pra o flex:0 0 100% dos slides funcionar */
+  max-width:100%;
   overflow-x:auto;
+  overflow-y:hidden;
   scroll-snap-type:x mandatory;
   scroll-behavior:smooth;
   -webkit-overflow-scrolling:touch;
@@ -208,6 +216,7 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 .lf-track::-webkit-scrollbar{display:none}
 .lf-slide{
   flex:0 0 100%;
+  min-width:0;          /* permite flex item encolher dentro do parent (corrige overflow no mobile) */
   scroll-snap-align:start;
   overflow:hidden;
   border-radius:var(--r-sm);
