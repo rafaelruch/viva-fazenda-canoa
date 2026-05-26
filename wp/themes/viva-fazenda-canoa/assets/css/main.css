@@ -149,13 +149,51 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 .btn--sm{padding:0.6rem 1rem;font-size:0.78rem}
 .btn--lg{padding:1.1rem 2rem;font-size:0.88rem}
 .btn--block{display:flex;width:100%}
-.btn--corten{background:var(--c-corten);color:#fff;border-color:var(--c-corten)}
-.btn--corten:hover{background:var(--c-corten-h);border-color:var(--c-corten-h);transform:translateY(-1px);box-shadow:var(--sh-md)}
+/* Default = PRETO sobre fundos claros (paleta mestre Fazenda Canoa).
+   Classe .btn--corten mantida pra não quebrar HTML — agora preto-marrom,
+   não mais o terracota corten. */
+.btn--corten{background:var(--c-ink);color:#fff;border-color:var(--c-ink)}
+.btn--corten:hover{background:var(--c-bg-dark-2);border-color:var(--c-bg-dark-2);transform:translateY(-1px);box-shadow:var(--sh-md)}
 .btn--outline{background:transparent;color:var(--c-ink);border-color:var(--c-line)}
 .btn--outline:hover{border-color:var(--c-ink);background:var(--c-bg-soft)}
+
+/* Inversão automática em sections de fundo escuro: botão BRANCO com texto preto. */
+.hero .btn--corten,
+.lifestyle .btn--corten,
+.capture .btn--corten,
+.counter .btn--corten,
+.cta-final .btn--corten,
+.modal__panel .btn--corten,
+.ft .btn--corten {
+  background: #FFFFFF;
+  color: var(--c-ink);
+  border-color: #FFFFFF;
+}
+.hero .btn--corten:hover,
+.lifestyle .btn--corten:hover,
+.capture .btn--corten:hover,
+.counter .btn--corten:hover,
+.cta-final .btn--corten:hover,
+.modal__panel .btn--corten:hover,
+.ft .btn--corten:hover {
+  background: rgba(255,255,255,0.88);
+  color: var(--c-ink);
+  border-color: rgba(255,255,255,0.88);
+}
+
 /* Shine sweep */
 .btn--corten::after{content:'';position:absolute;top:0;left:-120%;width:80%;height:100%;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,0.25) 50%,transparent 70%);transform:skewX(-20deg);transition:left 700ms var(--ease);pointer-events:none}
 .btn--corten:hover::after{left:130%}
+/* Em fundos escuros (botão branco), o shimmer fica escuro sutil */
+.hero .btn--corten::after,
+.lifestyle .btn--corten::after,
+.capture .btn--corten::after,
+.counter .btn--corten::after,
+.cta-final .btn--corten::after,
+.modal__panel .btn--corten::after,
+.ft .btn--corten::after {
+  background:linear-gradient(110deg,transparent 30%,rgba(28,27,19,0.12) 50%,transparent 70%);
+}
 
 .scroll-progress{position:fixed;top:0;left:0;height:2px;background:var(--c-corten);width:0%;z-index:101;pointer-events:none;transition:width 100ms linear}
 
