@@ -6,12 +6,16 @@ Esta pasta contém os **pacotes ZIP prontos** para upload via WordPress admin. U
 
 | Arquivo | Versão | O que é | Tamanho |
 |---|---|---|---|
-| `viva-fazenda-canoa-theme.zip` | **1.5.6** | Foto real do Pavilhão Social (fachada/portaria) | ~32 MB |
+| `viva-fazenda-canoa-theme.zip` | **1.5.7** | Foto correta do Pavilhão Social (faxada02.jpg) | ~32 MB |
 | `lfc-opcoes-plugin.zip`        | **1.0.4** | Plugin de opções + leads + webhook ImobMeet (principal + WhatsApp) + UTMs (compartilhado com Lago) | ~11 KB |
+
+### Mudanças na v1.5.7 (tema) — 2026-05-26
+
+- **Tema v1.5.7 (fix):** cliente apontou que a foto certa do Pavilhão Social é `faxada02.jpg` (5 min depois do v1.5.6 ter subido com a imagem errada). Card do playground agora usa `assets/fotos/faxada02.jpg` (749 KB pós-sips de 6.6 MB); arquivo `faxada-portaria.jpg` removido.
 
 ### Mudanças na v1.5.6 (tema) — 2026-05-26
 
-- **Tema v1.5.6 (asset):** card "Pavilhão Social" do playground agora usa **foto aérea real** da fachada com portaria (`assets/fotos/faxada-portaria.jpg`, 681 KB pós-sips de 5.6 MB) ao invés do `44.jpg` antigo. Galeria de Arquitetura (`architecture.php`) preservada — continua usando `44.jpg`/`45.jpg` em contexto de materialidade.
+- **Tema v1.5.6 (asset):** card "Pavilhão Social" do playground passou a usar foto entregue pelo cliente (`faxada-portaria.jpg`) ao invés do `44.jpg` antigo. *Sobrescrita pelo v1.5.7 logo em seguida.*
 
 ### Mudanças na v1.5.5 (tema) — 2026-05-26
 
