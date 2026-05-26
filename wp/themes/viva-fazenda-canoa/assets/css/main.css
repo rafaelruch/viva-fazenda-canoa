@@ -630,3 +630,20 @@ body.admin-bar .scroll-progress{top:32px}
 body.admin-bar .mobile-menu{top:calc(var(--hdr-h) + 32px)}
 @media(max-width:782px){body.admin-bar .hdr{top:46px}body.admin-bar .scroll-progress{top:46px}body.admin-bar .mobile-menu{top:calc(var(--hdr-h) + 46px)}}
 @media(max-width:600px){body.admin-bar .hdr{top:0}body.admin-bar .scroll-progress{top:0}body.admin-bar .mobile-menu{top:var(--hdr-h)}}
+
+/* ============================================================
+   Remove o gap default do WP Block Editor (24px) entre as <section>
+   filhas do <main>. Sem isso, dark sections (.counter, .lifestyle,
+   .capture, .cta-final) ficam com tarja branca acima/abaixo do
+   próprio body/main visível entre os blocos.
+   ============================================================ */
+main > section,
+.wp-block-group > section,
+main > .wp-block-group > section {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+/* Cobre também o caso de cada pattern ser wrapped em .wp-block-group */
+main > .wp-block-group + .wp-block-group {
+  margin-top: 0;
+}
