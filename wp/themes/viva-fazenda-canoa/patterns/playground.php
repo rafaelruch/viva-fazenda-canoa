@@ -41,7 +41,7 @@
       <p>Quadras de areia, poliesportiva, basquete, campo society, anfiteatro, deck cumaru e fitness.</p>
     </article>
     <article class="pg-card">
-      <div class="pg-card__img"><img src="<?php echo esc_url( get_theme_file_uri( 'assets/fotos/' ) ); ?>44.jpg" alt="Vista aérea do Pavilhão Social" loading="lazy"></div>
+      <div class="pg-card__img"><img src="<?php echo esc_url( get_theme_file_uri( 'assets/fotos/' ) ); ?>faxada-portaria.jpg" alt="Fachada do Pavilhão Social e portaria do Condomínio Reserva Fazenda Canoa" loading="lazy"></div>
       <h3>Pavilhão Social</h3>
       <p>Cozinha gourmet, salas privativas, automação Archtech, átrio com paisagismo e iluminação Studio Luz.</p>
     </article>

@@ -6,8 +6,12 @@ Esta pasta contém os **pacotes ZIP prontos** para upload via WordPress admin. U
 
 | Arquivo | Versão | O que é | Tamanho |
 |---|---|---|---|
-| `viva-fazenda-canoa-theme.zip` | **1.5.5** | Foto real do Beach Club + Marina no playground | ~31 MB |
+| `viva-fazenda-canoa-theme.zip` | **1.5.6** | Foto real do Pavilhão Social (fachada/portaria) | ~32 MB |
 | `lfc-opcoes-plugin.zip`        | **1.0.4** | Plugin de opções + leads + webhook ImobMeet (principal + WhatsApp) + UTMs (compartilhado com Lago) | ~11 KB |
+
+### Mudanças na v1.5.6 (tema) — 2026-05-26
+
+- **Tema v1.5.6 (asset):** card "Pavilhão Social" do playground agora usa **foto aérea real** da fachada com portaria (`assets/fotos/faxada-portaria.jpg`, 681 KB pós-sips de 5.6 MB) ao invés do `44.jpg` antigo. Galeria de Arquitetura (`architecture.php`) preservada — continua usando `44.jpg`/`45.jpg` em contexto de materialidade.
 
 ### Mudanças na v1.5.5 (tema) — 2026-05-26
 
