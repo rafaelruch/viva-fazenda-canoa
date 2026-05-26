@@ -6,8 +6,12 @@ Esta pasta contém os **pacotes ZIP prontos** para upload via WordPress admin. U
 
 | Arquivo | Versão | O que é | Tamanho |
 |---|---|---|---|
-| `viva-fazenda-canoa-theme.zip` | **1.5.7** | Foto correta do Pavilhão Social (faxada02.jpg) | ~32 MB |
+| `viva-fazenda-canoa-theme.zip` | **1.5.8** | Nova primeira imagem da seção Arquitetura & Materialidade | ~33 MB |
 | `lfc-opcoes-plugin.zip`        | **1.0.4** | Plugin de opções + leads + webhook ImobMeet (principal + WhatsApp) + UTMs (compartilhado com Lago) | ~11 KB |
+
+### Mudanças na v1.5.8 (tema) — 2026-05-26
+
+- **Tema v1.5.8 (asset):** primeira imagem da galeria `architecture.php` (seção "Arquitetura & Materialidade") trocada de `44.jpg` (Pavilhão Social aéreo) para `54.jpg` (foto entregue pelo cliente, 782 KB pós-sips de 3.1 MB). Alt text atualizado para "Materialidade da arquitetura Fazenda Canoa — cumaru, corten, pedra e cimento queimado".
 
 ### Mudanças na v1.5.7 (tema) — 2026-05-26
 

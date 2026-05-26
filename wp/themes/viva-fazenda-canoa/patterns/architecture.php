@@ -14,7 +14,7 @@
     <p>Cumaru natural, aço corten, pedra moledo, cimento queimado e pedra miracema rosa. Esquadrias italianas, iluminação Studio Luz, automação Archtech, louças Deca e Docol.</p>
   </header>
   <div class="architecture__gallery">
-    <figure><img src="<?php echo esc_url( get_theme_file_uri( 'assets/fotos/' ) ); ?>44.jpg" alt="Pavilhão Social — vista aérea da arquitetura" loading="lazy"></figure>
+    <figure><img src="<?php echo esc_url( get_theme_file_uri( 'assets/fotos/' ) ); ?>54.jpg" alt="Materialidade da arquitetura Fazenda Canoa — cumaru, corten, pedra e cimento queimado" loading="lazy"></figure>
     <figure><img src="<?php echo esc_url( get_theme_file_uri( 'assets/fotos/' ) ); ?>02.jpg" alt="Esquadrias do Pavilhão" loading="lazy"></figure>
     <figure><img src="<?php echo esc_url( get_theme_file_uri( 'assets/fotos/' ) ); ?>08.jpg" alt="Átrio com paisagismo" loading="lazy"></figure>
     <figure><img src="<?php echo esc_url( get_theme_file_uri( 'assets/fotos/' ) ); ?>45.jpg" alt="Pavilhão Social no contexto da paisagem" loading="lazy"></figure>
