@@ -6,7 +6,7 @@ Esta pasta contém os **pacotes ZIP prontos** para upload via WordPress admin. U
 
 | Arquivo | Versão | O que é | Tamanho |
 |---|---|---|---|
-| `viva-fazenda-canoa-theme.zip` | **1.5.1** | Tema alinhado ao site mestre — botões pretos com inversão automática em fundos escuros | ~31 MB |
+| `viva-fazenda-canoa-theme.zip` | **1.5.2** | Tema alinhado ao site mestre — apenas Farnham nos títulos + hero todo branco | ~31 MB |
 | `lfc-opcoes-plugin.zip`        | **1.0.4** | Plugin de opções + leads + webhook ImobMeet (principal + WhatsApp) + UTMs (compartilhado com Lago) | ~11 KB |
 
 ### Mudanças na v1.3.0 (tema) e v1.0.3 (plugin) — 2026-04-27

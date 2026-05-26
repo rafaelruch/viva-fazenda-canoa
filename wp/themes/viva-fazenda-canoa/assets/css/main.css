@@ -121,7 +121,7 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 
 /* ============================================================ UTILITIES */
 .eyebrow{
-  font-family:var(--ff-eyebrow);font-weight:500;font-size:0.72rem;
+  font-family:var(--ff-text);font-weight:400;font-size:0.72rem;
   letter-spacing:0.3em;text-transform:uppercase;color:var(--c-corten);
   display:inline-flex;align-items:center;gap:var(--s-3);margin-bottom:var(--s-4);
 }
@@ -242,10 +242,10 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 .hero__content .hero__cta{animation-delay:900ms}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
 
-.hero__eyebrow{font-family:var(--ff-eyebrow);font-weight:300;font-size:0.74rem;letter-spacing:0.32em;text-transform:uppercase;color:rgba(255,255,255,0.85)}
+.hero__eyebrow{font-family:var(--ff-text);font-weight:400;font-size:0.74rem;letter-spacing:0.32em;text-transform:uppercase;color:#fff}
 .hero__title{font-family:var(--ff-display);font-weight:400;font-size:clamp(3.2rem,12vw,7.5rem);line-height:0.95;letter-spacing:-0.03em;max-width:14ch}
-.hero__title em{font-style:italic;font-weight:500;color:var(--c-gold)}
-.hero__sub{font-weight:300;font-size:clamp(1rem,2.2vw,1.15rem);line-height:1.6;max-width:44ch;color:rgba(255,255,255,0.92)}
+.hero__title em{font-style:italic;font-weight:500;color:#fff}
+.hero__sub{font-weight:300;font-size:clamp(1rem,2.2vw,1.15rem);line-height:1.6;max-width:44ch;color:#fff}
 
 .hero__scroll{position:absolute;right:var(--s-5);bottom:var(--s-7);display:none;flex-direction:column;align-items:center;gap:var(--s-3);font-size:0.64rem;letter-spacing:0.32em;text-transform:uppercase;color:rgba(255,255,255,0.6);writing-mode:vertical-rl;z-index:2}
 .hero__scroll-line{writing-mode:horizontal-tb;display:block;width:1px;height:56px;background:linear-gradient(180deg,transparent,rgba(255,255,255,0.7) 50%,transparent);animation:scrollLine 2.4s ease-in-out infinite}
