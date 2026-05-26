@@ -26,7 +26,7 @@
       <p>Produção própria de vinho no condomínio. O que você serve aos amigos vem do quintal de casa.</p>
     </article>
     <article class="pg-card">
-      <div class="pg-card__img"><img src="<?php echo esc_url( get_theme_file_uri( 'assets/fotos/' ) ); ?>41.jpg" alt="Comunidade no beach tennis da Fazenda Canoa" loading="lazy"></div>
+      <div class="pg-card__img"><img src="<?php echo esc_url( get_theme_file_uri( 'assets/fotos/' ) ); ?>beach-club-marina.jpg" alt="Beach Club com piscina infinita e marina às margens do Lago Corumbá IV" loading="lazy"></div>
       <h3>Beach Club + Marina</h3>
       <p>Piscina infinita, 2 píeres, garagem de 12 barcos com energia solar e Estaleiro Jatobá.</p>
     </article>

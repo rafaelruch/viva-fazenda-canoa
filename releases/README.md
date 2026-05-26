@@ -6,8 +6,12 @@ Esta pasta contém os **pacotes ZIP prontos** para upload via WordPress admin. U
 
 | Arquivo | Versão | O que é | Tamanho |
 |---|---|---|---|
-| `viva-fazenda-canoa-theme.zip` | **1.5.4** | Tema mestre — remove gap branco entre sections (block-editor default) | ~31 MB |
+| `viva-fazenda-canoa-theme.zip` | **1.5.5** | Foto real do Beach Club + Marina no playground | ~31 MB |
 | `lfc-opcoes-plugin.zip`        | **1.0.4** | Plugin de opções + leads + webhook ImobMeet (principal + WhatsApp) + UTMs (compartilhado com Lago) | ~11 KB |
+
+### Mudanças na v1.5.5 (tema) — 2026-05-26
+
+- **Tema v1.5.5 (asset):** card "Beach Club + Marina" do playground agora usa **foto aérea real** do conjunto (`assets/fotos/beach-club-marina.jpg`, 503 KB pós-sips de 4.3 MB) ao invés da foto genérica de beach tennis (`41.jpg`). Alt text atualizado para "Beach Club com piscina infinita e marina às margens do Lago Corumbá IV".
 
 ### Mudanças na v1.3.0 (tema) e v1.0.3 (plugin) — 2026-04-27
 
