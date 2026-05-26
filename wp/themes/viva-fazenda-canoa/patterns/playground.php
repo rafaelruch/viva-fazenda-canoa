@@ -31,7 +31,7 @@
       <p>Piscina infinita, 2 píeres, garagem de 12 barcos com energia solar e Estaleiro Jatobá.</p>
     </article>
     <article class="pg-card">
-      <div class="pg-card__img"><img src="<?php echo esc_url( get_theme_file_uri( 'assets/fotos/' ) ); ?>15.jpg" alt="Portaria" loading="lazy"></div>
+      <div class="pg-card__img"><img src="<?php echo esc_url( get_theme_file_uri( 'assets/fotos/' ) ); ?>46.jpg" alt="3 quadras de tênis com vista para o Lago Corumbá IV" loading="lazy"></div>
       <h3>3 quadras de tênis</h3>
       <p>Saibro oficial, dimensões mundiais. Prontas para torneios. Vestiários Deca e Docol.</p>
     </article>
