@@ -76,11 +76,30 @@ input.field--invalid {
   --c-paper:    #FEFEFE;   /* mestre: off-white */
   --c-paper-light: rgba(254,254,254,0.92);
   --c-line:     #E1DCD8;
-  --c-corten:   #C02B0A;   /* mestre: vermelho/corten accent — antes era #A7522C */
-  --c-corten-h: #D43A1A;
-  --c-corten-d: #A02408;
+  /* "corten" mantido como nome do token (compat) — mas valor agora é preto-marrom mestre.
+     Em sections com fundo escuro, override pra branco no scope abaixo. */
+  --c-corten:   #1C1B13;
+  --c-corten-h: #382E2C;
+  --c-corten-d: #0F0E0A;
   --c-gold:     #878577;   /* mestre: khaki bege suporte — antes era #C9A96E dourado */
   --c-gold-soft:rgba(135,133,119,0.16);
+}
+
+/* Override automático em sections de fundo escuro — accent vira branco
+   pra preservar contraste em eyebrows, h2 italics, focus states etc. */
+.hero,
+.lifestyle,
+.capture,
+.counter,
+.cta-final,
+.modal__panel,
+.ft {
+  --c-corten: #FFFFFF;
+  --c-corten-h: rgba(255,255,255,0.88);
+  --c-corten-d: rgba(255,255,255,0.78);
+}
+
+:root {
   --c-ok:       #198754;
   --c-wa:       #25D366;
 
