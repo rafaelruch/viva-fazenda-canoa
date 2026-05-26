@@ -7,21 +7,46 @@
     "layout": { "contentSize": "1180px", "wideSize": "1440px" },
     "color": {
       "palette": [
-        { "slug": "paper",     "color": "#FAFAF7",  "name": "Paper" },
-        { "slug": "paper-soft","color": "#F2F0EB",  "name": "Paper Soft" },
-        { "slug": "dark",      "color": "#0A0A08",  "name": "Dark" },
-        { "slug": "ink",       "color": "#1A1714",  "name": "Ink" },
-        { "slug": "corten",    "color": "#A7522C",  "name": "Corten" },
-        { "slug": "gold",      "color": "#C9A96E",  "name": "Gold" },
-        { "slug": "ok",        "color": "#2E8F4F",  "name": "Green" },
+        { "slug": "paper",     "color": "#F0EEED",  "name": "Paper (bege mestre)" },
+        { "slug": "paper-soft","color": "#E8E5E3",  "name": "Paper Soft" },
+        { "slug": "dark",      "color": "#1C1B13",  "name": "Dark (preto-marrom mestre)" },
+        { "slug": "ink",       "color": "#1C1B13",  "name": "Ink (preto-marrom mestre)" },
+        { "slug": "corten",    "color": "#C02B0A",  "name": "Corten (vermelho mestre)" },
+        { "slug": "gold",      "color": "#878577",  "name": "Khaki (bege mestre)" },
+        { "slug": "ok",        "color": "#198754",  "name": "Green" },
         { "slug": "whatsapp",  "color": "#25D366",  "name": "WhatsApp" }
       ],
       "defaultPalette": false, "defaultGradients": false
     },
     "typography": {
       "fontFamilies": [
-        { "fontFamily": "'Cormorant Garamond', 'Times New Roman', serif", "slug": "display", "name": "Display (Cormorant)" },
-        { "fontFamily": "'Manrope', system-ui, sans-serif", "slug": "body", "name": "Body (Manrope)" }
+        {
+          "fontFamily": "'Farnham Display', Georgia, serif",
+          "slug": "display",
+          "name": "Display (Farnham)",
+          "fontFace": [
+            { "fontFamily": "Farnham Display", "fontStyle": "normal",  "fontWeight": "300", "fontDisplay": "swap", "src": [ "file:./assets/fonts/farnham/FarnhamDisplay-Light.woff2" ] },
+            { "fontFamily": "Farnham Display", "fontStyle": "italic",  "fontWeight": "300", "fontDisplay": "swap", "src": [ "file:./assets/fonts/farnham/FarnhamDisplay-LightItalic.woff2" ] },
+            { "fontFamily": "Farnham Display", "fontStyle": "normal",  "fontWeight": "500", "fontDisplay": "swap", "src": [ "file:./assets/fonts/farnham/FarnhamDisplay-Medium.woff2" ] }
+          ]
+        },
+        {
+          "fontFamily": "'Farnham Text', Georgia, serif",
+          "slug": "body",
+          "name": "Body (Farnham Text)",
+          "fontFace": [
+            { "fontFamily": "Farnham Text", "fontStyle": "normal", "fontWeight": "400", "fontDisplay": "swap", "src": [ "file:./assets/fonts/farnham/FarnhamText-Regular.woff2" ] }
+          ]
+        },
+        {
+          "fontFamily": "'Sackers Gothic', 'Trajan Pro', Georgia, serif",
+          "slug": "sackers",
+          "name": "Sackers Gothic",
+          "fontFace": [
+            { "fontFamily": "Sackers Gothic", "fontStyle": "normal", "fontWeight": "300", "fontDisplay": "swap", "src": [ "file:./assets/fonts/sackers/SackersGothic-Light.woff2" ] },
+            { "fontFamily": "Sackers Gothic", "fontStyle": "normal", "fontWeight": "500", "fontDisplay": "swap", "src": [ "file:./assets/fonts/sackers/SackersGothic-Medium.woff2" ] }
+          ]
+        }
       ]
     }
   },

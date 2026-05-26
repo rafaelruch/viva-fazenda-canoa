@@ -18,8 +18,8 @@ add_action( 'after_setup_theme', function () {
 // Enqueue styles and scripts
 add_action( 'wp_enqueue_scripts', function () {
 	$ver = wp_get_theme()->get( 'Version' );
-	wp_enqueue_style( 'vfc-fonts', 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Manrope:wght@300;400;500;600;700&display=swap', [], null );
-	wp_enqueue_style( 'vfc-main', get_theme_file_uri( 'assets/css/main.css' ), [ 'vfc-fonts' ], $ver );
+	// Fontes self-hosted (Farnham + Sackers Gothic) — declaradas no main.css via @font-face
+	wp_enqueue_style( 'vfc-main', get_theme_file_uri( 'assets/css/main.css' ), [], $ver );
 	wp_enqueue_script( 'vfc-main', get_theme_file_uri( 'assets/js/main.js' ), [], $ver, [ 'in_footer' => true, 'strategy' => 'defer' ] );
 	$opts = function_exists( 'lfc_get_options' ) ? lfc_get_options() : [];
 	wp_localize_script( 'vfc-main', 'FC_OPTS', [

@@ -1,9 +1,42 @@
 /* ============================================================
    VIVA FAZENDA CANOA — LP Emocional de Alta Conversão
    Aesthetic: Cinematográfico emocional (inspiração Hantei)
-   Typography: Cormorant Garamond italic (display) + Manrope (body)
+   Typography: Farnham (Display + Text) + Sackers Gothic — self-hosted,
+   alinhada ao site mestre fazendacanoa.com.br.
    CTA: Corten #A7522C (terceira cor elegante)
    ============================================================ */
+
+/* ---------- @font-face — self-hosted Farnham + Sackers Gothic ---------- */
+@font-face {
+  font-family: 'Farnham Display';
+  src: url('../fonts/farnham/FarnhamDisplay-Light.woff2') format('woff2');
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Farnham Display';
+  src: url('../fonts/farnham/FarnhamDisplay-LightItalic.woff2') format('woff2');
+  font-weight: 300; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: 'Farnham Display';
+  src: url('../fonts/farnham/FarnhamDisplay-Medium.woff2') format('woff2');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Farnham Text';
+  src: url('../fonts/farnham/FarnhamText-Regular.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Sackers Gothic';
+  src: url('../fonts/sackers/SackersGothic-Light.woff2') format('woff2');
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Sackers Gothic';
+  src: url('../fonts/sackers/SackersGothic-Medium.woff2') format('woff2');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
 
 /* Garante que o atributo HTML `hidden` sempre force display:none. */
 [hidden] { display: none !important; }
@@ -30,28 +63,31 @@ input.field--invalid {
 }
 
 :root {
-  /* Colors */
-  --c-bg:       #FAFAF7;
-  --c-bg-soft:  #F2F0EB;
-  --c-bg-dark:  #0A0A08;
-  --c-bg-dark-2:#151510;
-  --c-ink:      #1A1714;
-  --c-ink-soft: #3A332C;
-  --c-ink-mute: #7A7268;
-  --c-paper:    #FAFAF7;
-  --c-paper-light: rgba(250,250,247,0.92);
-  --c-line:     #E4DFD6;
-  --c-corten:   #A7522C;
-  --c-corten-h: #BF6438;
-  --c-corten-d: #8A4024;
-  --c-gold:     #C9A96E;
-  --c-gold-soft:rgba(201,169,110,0.12);
-  --c-ok:       #2E8F4F;
+  /* Colors — alinhada ao site mestre fazendacanoa.com.br (2026-05-26).
+     Paleta: preto-marrom #1C1B13, corten #C02B0A, bege/khaki #878577,
+     bege ultra claro #F0EEED. */
+  --c-bg:       #F0EEED;   /* mestre: bege ultra claro */
+  --c-bg-soft:  #E8E5E3;
+  --c-bg-dark:  #1C1B13;   /* mestre: preto-marrom escuro principal */
+  --c-bg-dark-2:#382E2C;   /* mestre: hover/acentuação marrom */
+  --c-ink:      #1C1B13;   /* mestre: preto-marrom */
+  --c-ink-soft: #5B5B5B;   /* mestre: cinza médio */
+  --c-ink-mute: #878787;   /* mestre: cinza claro */
+  --c-paper:    #FEFEFE;   /* mestre: off-white */
+  --c-paper-light: rgba(254,254,254,0.92);
+  --c-line:     #E1DCD8;
+  --c-corten:   #C02B0A;   /* mestre: vermelho/corten accent — antes era #A7522C */
+  --c-corten-h: #D43A1A;
+  --c-corten-d: #A02408;
+  --c-gold:     #878577;   /* mestre: khaki bege suporte — antes era #C9A96E dourado */
+  --c-gold-soft:rgba(135,133,119,0.16);
+  --c-ok:       #198754;
   --c-wa:       #25D366;
 
-  /* Typography */
-  --ff-display: 'Cormorant Garamond', 'Times New Roman', serif;
-  --ff-body:    'Manrope', system-ui, sans-serif;
+  /* Typography — Farnham (Hoefler) + Sackers Gothic (Monotype), alinhada ao mestre */
+  --ff-display: 'Farnham Display', Georgia, 'Times New Roman', serif;
+  --ff-body:    'Farnham Text', Georgia, 'Times New Roman', serif;
+  --ff-eyebrow: 'Sackers Gothic', 'Trajan Pro', Georgia, serif;
 
   /* Spacing */
   --s-1:0.25rem;--s-2:0.5rem;--s-3:0.75rem;--s-4:1rem;--s-5:1.5rem;
@@ -85,7 +121,7 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 
 /* ============================================================ UTILITIES */
 .eyebrow{
-  font-family:var(--ff-body);font-weight:500;font-size:0.72rem;
+  font-family:var(--ff-eyebrow);font-weight:500;font-size:0.72rem;
   letter-spacing:0.3em;text-transform:uppercase;color:var(--c-corten);
   display:inline-flex;align-items:center;gap:var(--s-3);margin-bottom:var(--s-4);
 }
@@ -168,7 +204,7 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 .hero__content .hero__cta{animation-delay:900ms}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
 
-.hero__eyebrow{font-family:var(--ff-body);font-weight:300;font-size:0.74rem;letter-spacing:0.32em;text-transform:uppercase;color:rgba(255,255,255,0.85)}
+.hero__eyebrow{font-family:var(--ff-eyebrow);font-weight:300;font-size:0.74rem;letter-spacing:0.32em;text-transform:uppercase;color:rgba(255,255,255,0.85)}
 .hero__title{font-family:var(--ff-display);font-weight:400;font-size:clamp(3.2rem,12vw,7.5rem);line-height:0.95;letter-spacing:-0.03em;max-width:14ch}
 .hero__title em{font-style:italic;font-weight:500;color:var(--c-gold)}
 .hero__sub{font-weight:300;font-size:clamp(1rem,2.2vw,1.15rem);line-height:1.6;max-width:44ch;color:rgba(255,255,255,0.92)}
