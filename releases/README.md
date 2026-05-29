@@ -6,8 +6,12 @@ Esta pasta contém os **pacotes ZIP prontos** para upload via WordPress admin. U
 
 | Arquivo | Versão | O que é | Tamanho |
 |---|---|---|---|
-| `viva-fazenda-canoa-theme.zip` | **1.5.8** | Nova primeira imagem da seção Arquitetura & Materialidade | ~33 MB |
+| `viva-fazenda-canoa-theme.zip` | **1.5.9** | Seção FRSC sem "Quem realiza" e sem traço no título | ~33 MB |
 | `lfc-opcoes-plugin.zip`        | **1.0.4** | Plugin de opções + leads + webhook ImobMeet (principal + WhatsApp) + UTMs (compartilhado com Lago) | ~11 KB |
+
+### Mudanças na v1.5.9 (tema) — 2026-05-29
+
+- **Tema v1.5.9 (copy):** seção `developer.php` (Incorporadora FRSC) limpa: eyebrow "Quem realiza" trocado por "FRSC"; título `FRSC — Em constante busca pela excelência.` reduzido para apenas `Em constante busca pela excelência.` (sem o "FRSC" duplicado no h2 e sem o em-dash "cara de ChatGPT").
 
 ### Mudanças na v1.5.8 (tema) — 2026-05-26
 
