@@ -20,10 +20,10 @@
     </blockquote>
     <blockquote class="testimonial">
       <p>"Investimos pensando em valorização e ganhamos qualidade de vida. Os fins de semana mudaram completamente."</p>
-      <footer><strong>Investidor</strong><span>2 lotes — Vista-Lago</span></footer>
+      <footer><strong>Investidor</strong><span>2 lotes Vista-Lago</span></footer>
     </blockquote>
     <blockquote class="testimonial">
-      <p>"A infraestrutura entregue surpreende. Vinícola, heliponto, Beach Club — tudo funcionando. Não é promessa."</p>
+      <p>"A infraestrutura entregue surpreende. Vinícola, heliponto, Beach Club. Tudo funcionando. Não é promessa."</p>
       <footer><strong>Proprietário</strong><span>Lote Bosque</span></footer>
     </blockquote>
   </div>

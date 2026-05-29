@@ -19,7 +19,7 @@
   <div class="hero__content">
     <p class="hero__eyebrow">Condomínio-Reserva · Lago Corumbá IV · Silvânia, GO</p>
     <h1 class="hero__title">Parece cenário<br>de filme.<br><em>Mas pode ser seu.</em></h1>
-    <p class="hero__sub">Lago privativo, vinícola própria e refúgio de elite — sua experiência exclusiva às margens do lago.</p>
+    <p class="hero__sub">Lago privativo, vinícola própria e refúgio de elite. Sua experiência exclusiva às margens do lago.</p>
     <a href="#contato" class="btn btn--corten btn--lg hero__cta">
       Quero viver assim
       <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>

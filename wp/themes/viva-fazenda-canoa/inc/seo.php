@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 add_action( 'wp_head', function () {
 	$opts = function_exists( 'lfc_get_options' ) ? lfc_get_options() : [];
-	$description = 'Condomínio Reserva Fazenda Canoa — Lotes a partir de R$ 419.000,00 em Silvânia/GO, às margens do Lago Corumbá IV. Infraestrutura de resort entregue: Beach Club, Marina, Heliponto ANAC, Vinícola Costa Cave.';
+	$description = 'Condomínio Reserva Fazenda Canoa. Lotes a partir de R$ 419.000,00 em Silvânia/GO, às margens do Lago Corumbá IV. Infraestrutura de resort entregue: Beach Club, Marina, Heliponto ANAC, Vinícola Costa Cave.';
 	$canonical   = home_url( add_query_arg( null, null ) );
 
 	echo "\n<!-- SEO (Fazenda Canoa) -->\n";
@@ -31,7 +31,7 @@ add_action( 'wp_head', function () {
 	echo '<meta name="googlebot" content="index, follow">' . "\n";
 	echo '<link rel="canonical" href="' . esc_url( $canonical ) . '">' . "\n";
 	echo '<meta name="format-detection" content="telephone=no">' . "\n";
-	echo '<meta name="author" content="FRSC — Fazenda Reserva">' . "\n";
+	echo '<meta name="author" content="FRSC Fazenda Reserva">' . "\n";
 	echo '<meta name="geo.region" content="BR-GO">' . "\n";
 	echo '<meta name="geo.placename" content="Silvânia">' . "\n";
 	echo '<meta name="geo.position" content="-16.3195247;-48.4709649">' . "\n";
@@ -45,7 +45,7 @@ add_action( 'wp_head', function () {
  */
 add_action( 'wp_head', function () {
 	$title = wp_get_document_title();
-	$desc  = 'Condomínio Reserva Fazenda Canoa — Lotes a partir de R$ 419.000,00 em Silvânia/GO, às margens do Lago Corumbá IV. Infraestrutura de resort entregue.';
+	$desc  = 'Condomínio Reserva Fazenda Canoa. Lotes a partir de R$ 419.000,00 em Silvânia/GO, às margens do Lago Corumbá IV. Infraestrutura de resort entregue.';
 	$url   = home_url( add_query_arg( null, null ) );
 	$og    = get_theme_file_uri( 'assets/fotos/22.jpg' );
 
@@ -103,7 +103,7 @@ add_action( 'wp_head', function () {
 		[
 			'@type'       => 'Organization',
 			'@id'         => $site_url . '#organization',
-			'name'        => 'FRSC — Fazenda Reserva',
+			'name'        => 'FRSC Fazenda Reserva',
 			'url'         => 'https://frsc.com.br/',
 			'logo'        => [
 				'@type'  => 'ImageObject',
@@ -193,7 +193,7 @@ add_action( 'wp_head', function () {
 		[
 			'@type'   => 'Place',
 			'@id'     => $site_url . '#place',
-			'name'    => 'Reserva Fazenda Canoa — Silvânia/GO',
+			'name'    => 'Reserva Fazenda Canoa, Silvânia/GO',
 			'address' => [
 				'@type'           => 'PostalAddress',
 				'addressLocality' => 'Silvânia',
@@ -273,7 +273,7 @@ add_action( 'wp_head', function () {
 					'name'  => 'Quanto da infraestrutura já foi entregue?',
 					'acceptedAnswer' => [
 						'@type' => 'Answer',
-						'text'  => 'Portaria 24h, Pavilhão Social, Complexo de Tênis (3 quadras oficiais), Heliponto homologado ANAC, Praça do Beija-Flor, Praça do Sabiá, Marina com Estaleiro Jatobá, garagem de barcos, píeres, Beach Club com piscina infinita, ciclovia e pista de Cooper — todos em operação.',
+						'text'  => 'Portaria 24h, Pavilhão Social, Complexo de Tênis (3 quadras oficiais), Heliponto homologado ANAC, Praça do Beija-Flor, Praça do Sabiá, Marina com Estaleiro Jatobá, garagem de barcos, píeres, Beach Club com piscina infinita, ciclovia e pista de Cooper. Todos em operação.',
 					],
 				],
 				[
@@ -305,7 +305,7 @@ add_action( 'wp_head', function () {
 					'name'  => 'Como agendar uma visita ao empreendimento?',
 					'acceptedAnswer' => [
 						'@type' => 'Answer',
-						'text'  => 'Via WhatsApp ou pelo formulário da página. Visitas são agendadas — presenciais (escritório em Anápolis) ou no próprio empreendimento em Silvânia.',
+						'text'  => 'Via WhatsApp ou pelo formulário da página. Visitas são agendadas presenciais (escritório em Anápolis) ou no próprio empreendimento em Silvânia.',
 					],
 				],
 			],

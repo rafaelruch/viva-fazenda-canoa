@@ -6,8 +6,12 @@ Esta pasta contém os **pacotes ZIP prontos** para upload via WordPress admin. U
 
 | Arquivo | Versão | O que é | Tamanho |
 |---|---|---|---|
-| `viva-fazenda-canoa-theme.zip` | **1.5.9** | Seção FRSC sem "Quem realiza" e sem traço no título | ~33 MB |
+| `viva-fazenda-canoa-theme.zip` | **1.5.10** | Remove em-dashes (—) renderizáveis (hero, depoimentos, capture, faq, lifestyle, architecture, footer, SEO) | ~33 MB |
 | `lfc-opcoes-plugin.zip`        | **1.0.4** | Plugin de opções + leads + webhook ImobMeet (principal + WhatsApp) + UTMs (compartilhado com Lago) | ~11 KB |
+
+### Mudanças na v1.5.10 (tema) — 2026-05-29
+
+- **Tema v1.5.10 (copy):** sweep completo de em-dashes (—) "cara de ChatGPT" no Viva. Substituídos por ponto/vírgula/dois-pontos em: `patterns/hero.php` (hero__sub), `patterns/testimonials.php` (2 depoimentos), `patterns/capture.php`, `patterns/faq.php`, `patterns/lifestyle.php` (texto + 2 alt texts), `patterns/architecture.php` (alt), `parts/footer.html` ("FRSC — frsc.com.br" → "FRSC · frsc.com.br"), `inc/seo.php` (7 ocorrências). Comentários PHP docblock preservados.
 
 ### Mudanças na v1.5.9 (tema) — 2026-05-29
 

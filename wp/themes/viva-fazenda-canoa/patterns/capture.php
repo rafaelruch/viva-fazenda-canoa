@@ -12,7 +12,7 @@
     <div class="capture__text">
       <p class="eyebrow">Agende sua visita</p>
       <h2>O privilégio de viver como<br>em um resort, <em>todos os dias.</em></h2>
-      <p>Preencha o formulário e um consultor exclusivo retorna em instantes com todas as informações — plantas, disponibilidade, condições e agendamento de visita presencial ou virtual.</p>
+      <p>Preencha o formulário e um consultor exclusivo retorna em instantes com todas as informações: plantas, disponibilidade, condições e agendamento de visita presencial ou virtual.</p>
       <ul class="capture__benefits">
         <li>
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
