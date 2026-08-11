@@ -119,6 +119,13 @@ function lfc_handle_lead_submit() {
 		update_post_meta( $post_id, 'webhook_status', 'skipped: webhook_url (' . $flow . ') vazio em lfc_get_options()' );
 	}
 
+	// Notificação por e-mail para a equipe de relacionamento (todos os fluxos).
+	if ( ! empty( $opts['notify_email'] ) && is_email( $opts['notify_email'] ) ) {
+		lfc_dispatch_lead_email( $post_id, $opts['notify_email'] );
+	} else {
+		update_post_meta( $post_id, 'email_status', 'skipped: notify_email vazio/inválido' );
+	}
+
 	wp_send_json_success( [
 		'message'  => 'Lead recebido com sucesso.',
 		'lead_id'  => $post_id,
@@ -259,6 +266,53 @@ function lfc_dispatch_webhook( $post_id, $opts ) {
 			: 'http_error' . $flow_label . ': ' . $code . ' — ' . wp_remote_retrieve_response_message( $response );
 	}
 	update_post_meta( $post_id, 'webhook_status', $status );
+}
+
+/**
+ * Envia notificação de novo lead por e-mail via wp_mail.
+ * Grava email_status na meta do lead para facilitar debug.
+ *
+ * @param int    $post_id CPT lead ID
+ * @param string $to      Destinatário (opção notify_email)
+ */
+function lfc_dispatch_lead_email( $post_id, $to ) {
+	$nome      = get_post_meta( $post_id, 'nome', true );
+	$telefone  = get_post_meta( $post_id, 'telefone', true );
+	$email     = get_post_meta( $post_id, 'email', true );
+	$interesse = get_post_meta( $post_id, 'interesse', true );
+	$contexto  = get_post_meta( $post_id, 'contexto', true );
+	$source    = get_post_meta( $post_id, 'source', true );
+	$flow      = get_post_meta( $post_id, 'flow', true );
+
+	$site_name = wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES );
+	$subject   = sprintf( '[%s] Novo lead: %s', $site_name, $nome );
+
+	$linhas = [
+		'Novo contato recebido pela landing page ' . home_url() . ':',
+		'',
+		'Nome:      ' . $nome,
+		'WhatsApp:  ' . $telefone,
+	];
+	if ( $email )     $linhas[] = 'E-mail:    ' . $email;
+	if ( $interesse ) $linhas[] = 'Interesse: ' . $interesse;
+	$linhas[] = 'Contexto:  ' . $contexto . ' (form: ' . $source . ', fluxo: ' . $flow . ')';
+
+	$utm_campaign = get_post_meta( $post_id, 'utm_campaign', true );
+	$utm_source   = get_post_meta( $post_id, 'utm_source', true );
+	if ( $utm_source || $utm_campaign ) {
+		$linhas[] = 'Origem:    ' . trim( $utm_source . ' / ' . $utm_campaign, ' /' );
+	}
+
+	$linhas[] = '';
+	$linhas[] = 'Ver no painel: ' . admin_url( 'post.php?post=' . $post_id . '&action=edit' );
+
+	$headers = [];
+	if ( $email && is_email( $email ) ) {
+		$headers[] = 'Reply-To: ' . $nome . ' <' . $email . '>';
+	}
+
+	$sent = wp_mail( $to, $subject, implode( "\n", $linhas ), $headers );
+	update_post_meta( $post_id, 'email_status', $sent ? 'sent: ' . $to : 'wp_mail_failed: ' . $to );
 }
 
 /**

@@ -2,8 +2,8 @@
 /**
  * Plugin Name:       Fazenda Canoa — Opções & Leads
  * Plugin URI:        https://lago.fazendacanoa.com.br
- * Description:       Opções centrais (WhatsApp, e-mail, horário, URL do book) + CPT para captação de leads + endpoint AJAX + webhook ImobMeet CRM (default) com fallback p/ admin. Usado pelos temas fazenda-canoa e viva-fazenda-canoa.
- * Version:           1.0.4
+ * Description:       Opções centrais (WhatsApp, e-mail, horário, URL do book) + CPT para captação de leads + endpoint AJAX + webhook ImobMeet CRM (default) + notificação por e-mail. Usado pelos temas fazenda-canoa e viva-fazenda-canoa.
+ * Version:           1.1.0
  * Author:            RUCH
  * Author URI:        https://ruch.digital
  * License:           GPL-2.0-or-later
@@ -16,7 +16,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'LFC_VERSION', '1.0.4' );
+define( 'LFC_VERSION', '1.1.0' );
 // Webhook principal — leads capturados via formulários (consultor, modal, capture, book).
 define( 'LFC_DEFAULT_WEBHOOK_URL', 'https://crm.imobmeet.com.br/webhook/formulario/d71ec64fcce5855c24d3ce8a9404113bcea6bc35' );
 // Webhook secundário — leads capturados antes de redirect para WhatsApp (apenas site Lago).
@@ -37,6 +37,8 @@ function lfc_get_options() {
 	$defaults = [
 		'whatsapp'            => '5562999593530',
 		'email'               => 'contato@fazendacanoa.com.br',
+		// Destinatário das notificações de novo lead por e-mail (vazio = desativado)
+		'notify_email'        => 'relacionamento@frsc.com.br',
 		'telefone'            => '',
 		'horario'             => 'Seg a Sáb, 9h às 19h',
 		'mensagem_wa_padrao'  => 'Olá! Vim pela landing page da Fazenda Canoa',

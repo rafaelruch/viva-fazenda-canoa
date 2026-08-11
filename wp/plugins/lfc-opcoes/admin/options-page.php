@@ -36,6 +36,7 @@ function lfc_sanitize_options( $input ) {
 	$clean = [];
 	$clean['whatsapp']           = preg_replace( '/\D/', '', $input['whatsapp'] ?? '' );
 	$clean['email']              = sanitize_email( $input['email'] ?? '' );
+	$clean['notify_email']       = sanitize_email( $input['notify_email'] ?? '' );
 	$clean['telefone']           = sanitize_text_field( $input['telefone'] ?? '' );
 	$clean['horario']            = sanitize_text_field( $input['horario'] ?? '' );
 	$clean['mensagem_wa_padrao'] = sanitize_text_field( $input['mensagem_wa_padrao'] ?? '' );
@@ -83,6 +84,13 @@ function lfc_render_options_page() {
 					<th scope="row"><label for="lfc_email"><?php esc_html_e( 'E-mail comercial', 'lfc-opcoes' ); ?></label></th>
 					<td>
 						<input type="email" id="lfc_email" name="lfc_opcoes[email]" value="<?php echo esc_attr( $opts['email'] ); ?>" class="regular-text" placeholder="contato@fazendacanoa.com.br">
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="lfc_notify_email"><?php esc_html_e( 'E-mail de notificação de leads', 'lfc-opcoes' ); ?></label></th>
+					<td>
+						<input type="email" id="lfc_notify_email" name="lfc_opcoes[notify_email]" value="<?php echo esc_attr( $opts['notify_email'] ); ?>" class="regular-text" placeholder="relacionamento@frsc.com.br">
+						<p class="description"><?php esc_html_e( 'Todo lead capturado nos formulários é enviado para este e-mail. Deixe vazio para desativar (leads continuam salvos em Leads e no CRM).', 'lfc-opcoes' ); ?></p>
 					</td>
 				</tr>
 				<tr>
